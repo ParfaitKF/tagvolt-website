@@ -1,0 +1,13 @@
+# dependencies (sharp is only a local image-conversion helper)
+node_modules/
+package.json
+package-lock.json
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+
+# local scratch
+/tmp/
