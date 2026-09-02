@@ -276,7 +276,7 @@ strong { color: var(--ink-700); font-weight: 700; }
 .problem__head h2 { line-height: 1.12; font-size: clamp(1.9rem, 1.25rem + 2.1vw, 2.9rem); }
 .problem__head p { margin-top: 18px; color: var(--body); font-size: 1.05rem; }
 
-.problem__cards { display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch; }
+.problem__cards { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch; }
 
 .pcard {
   flex: 1 1 220px; position: relative;
