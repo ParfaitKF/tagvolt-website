@@ -168,7 +168,7 @@ strong { color: var(--ink-700); font-weight: 700; }
 }
 .mobile-menu.is-open { display: block; }
 .mobile-menu a { display: block; padding: 13px 0; border-bottom: 1px solid var(--line); color: var(--ink); font-weight: 500; }
-.mobile-menu .btn { width: 100%; margin-top: 18px; }
+.mobile-menu a.btn { display: flex; justify-content: center; width: 100%; margin-top: 18px; padding: 15px 24px; border-bottom: 0; color: #fff; font-weight: 600; }
 .mobile-menu .lang-toggle { margin-top: 16px; }
 
 @media (min-width: 980px){
