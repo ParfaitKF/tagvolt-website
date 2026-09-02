@@ -108,22 +108,56 @@
     reveals.forEach(function (el) { el.classList.add("is-in"); });
   }
 
-  /* ---------- contact form (front-end demo, no backend) ---------- */
-  var form = doc.querySelector("[data-demo-form]");
+  /* ---------- contact form (posts to Web3Forms; no backend needed) ---------- */
+  var form = doc.querySelector("[data-audit-form]");
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      var honeypot = form.querySelector('[name="company_website"]');
-      if (honeypot && honeypot.value) { return; } // bot: drop silently
+
+      // honeypots
+      var hp1 = form.querySelector('[name="company_website"]');
+      var hp2 = form.querySelector('[name="botcheck"]');
+      if ((hp1 && hp1.value) || (hp2 && hp2.checked)) return; // bot: drop silently
       if (!form.checkValidity()) { form.reportValidity(); return; }
+
       var ok = form.querySelector(".form-success") ||
                (form.parentElement && form.parentElement.querySelector(".form-success"));
-      form.reset();
-      form.querySelectorAll("input,textarea,button").forEach(function (el) { el.disabled = true; });
-      if (ok) {
-        ok.classList.add("is-visible");
-        ok.scrollIntoView({ behavior: "smooth", block: "center" });
+      var btn = form.querySelector('button[type="submit"]');
+      var controls = form.querySelectorAll("input,textarea,button");
+      var key = form.querySelector('[name="access_key"]');
+
+      var finish = function () {
+        controls.forEach(function (el) { el.disabled = true; });
+        form.reset();
+        if (ok) { ok.classList.add("is-visible"); ok.scrollIntoView({ behavior: "smooth", block: "center" }); }
+      };
+
+      // no real key yet -> don't pretend it sent
+      if (!key || !key.value || key.value.indexOf("YOUR-WEB3FORMS") === 0) {
+        if (window.console) console.warn("[TagVolt] contact form: set a Web3Forms access_key in contact.html to enable submissions.");
+        controls.forEach(function (el) { el.disabled = true; });
+        if (ok) { ok.textContent = "Form isn't connected yet — add your Web3Forms access key."; ok.classList.add("is-visible"); }
+        return;
       }
+
+      var label = btn ? btn.textContent : "";
+      if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
+
+      fetch(form.action, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(form)
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data && data.success) { finish(); }
+          else { throw new Error((data && data.message) || "Submission failed"); }
+        })
+        .catch(function (err) {
+          if (window.console) console.error("[TagVolt] contact form error:", err);
+          if (btn) { btn.disabled = false; btn.textContent = label; }
+          window.alert("Sorry — something went wrong sending your request. Please email hello@tagvolt.com and we'll get right back to you.");
+        });
     });
   }
 

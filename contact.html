@@ -82,8 +82,13 @@
       </div>
 
       <div class="hero__panel reveal">
-        <form class="form" data-demo-form novalidate>
+        <form class="form" data-audit-form action="https://api.web3forms.com/submit" method="POST" novalidate>
           <div class="form-success" role="status">Thanks — your request is in. We'll reply within one business day to book your 20-minute audit.</div>
+          <!-- Web3Forms: replace the value below with your own access key from https://web3forms.com (free). -->
+          <input type="hidden" name="access_key" value="YOUR-WEB3FORMS-ACCESS-KEY" />
+          <input type="hidden" name="subject" value="New Lead Leak Audit request — tagvolt.com" />
+          <input type="hidden" name="from_name" value="TagVolt website" />
+          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
           <div aria-hidden="true" style="position:absolute;left:-9999px"><label>Leave this field empty <input type="text" name="company_website" tabindex="-1" autocomplete="off" /></label></div>
           <div class="row2">
             <div class="field">
@@ -118,7 +123,7 @@
             <textarea id="message" name="message" required></textarea>
           </div>
           <button class="btn btn--primary btn--lg" type="submit">Send &amp; Request My Audit</button>
-          <p class="form__note">Or email us directly at <a href="mailto:hello@tagvolt.com">hello@tagvolt.com</a>. This demo form doesn't send anywhere yet — connect it to your inbox or CRM before launch.</p>
+          <p class="form__note">Prefer email? <a href="mailto:hello@tagvolt.com">hello@tagvolt.com</a>. We reply within one business day.</p>
         </form>
       </div>
     </div>
