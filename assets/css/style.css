@@ -241,7 +241,7 @@ strong { color: var(--ink-700); font-weight: 700; }
   .hero__media {
     position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
     width: min(118%, 500px); max-width: none; margin: 0;
-    opacity: .12; z-index: 0; pointer-events: none;
+    opacity: .25; z-index: 0; pointer-events: none;
   }
   .hero__copy { position: relative; z-index: 1; background: rgba(255,255,255,.74); }
 }
