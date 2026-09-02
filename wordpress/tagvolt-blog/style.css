@@ -1,0 +1,69 @@
+/*
+Theme Name: TagVolt Blog
+Theme URI: https://tagvolt.com/blog/
+Author: TagVolt
+Author URI: https://tagvolt.com/
+Description: Blog-only theme for tagvolt.com. Runs WordPress in the /blog subdirectory and mirrors the hand-built static marketing site's visual system (Sora / Inter, orange #FF6B00, blue #0A84FF, slate #0F172A). Templates: home, single, archive, search, 404. It re-uses the canonical /assets/css/style.css from the main site so the blog and the site never drift apart.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.6
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: tagvolt-blog
+*/
+
+/* ---------------------------------------------------------------------
+   The design system is loaded from the main site's stylesheet
+   (see functions.php -> tagvolt_assets). Only blog-only additions and
+   small bridges live here, loaded LAST so they win on equal specificity.
+   --------------------------------------------------------------------- */
+
+/* The static site's .blog-filters styling targets <button>. Here the
+   filters are real links (one per Engine stage), so mirror the rules. */
+.blog-filters a {
+  padding: 9px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+}
+.blog-filters a:hover { color: var(--ink); border-color: var(--muted); }
+.blog-filters a.is-active {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+
+/* Featured image on a card sits above the slate gradient fallback. */
+.post-card__media[style*="background-image"] { background-size: cover; background-position: center; }
+
+/* WordPress core markup inside the article body. */
+.article__body figure { margin-inline: 0; }
+.article__body figure img { border-radius: 12px; }
+.article__body figcaption { font-size: .85rem; color: var(--muted); margin-top: 8px; }
+.article__body .wp-block-image { margin-block: 1.4em; }
+.article__body .wp-block-pullquote,
+.article__body .wp-block-quote { border-left: 3px solid var(--orange); padding: 6px 0 6px 22px; font-style: italic; color: var(--body); }
+
+/* Pagination under the card grid. */
+.pagination { margin-top: 56px; display: flex; justify-content: center; }
+.pagination .nav-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.pagination .page-numbers {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 40px; height: 40px; padding: 0 12px;
+  border: 1px solid var(--line); border-radius: var(--radius-pill);
+  font-size: .9rem; font-weight: 600; color: var(--muted);
+}
+.pagination .page-numbers.current { background: var(--ink); color: #fff; border-color: var(--ink); }
+.pagination a.page-numbers:hover { color: var(--ink); border-color: var(--muted); }
+
+/* Keep-reading block. */
+.keep-reading { background: var(--bg-alt); }
+.keep-reading h2 { font-size: 1.4rem; margin-bottom: 28px; }
+
+/* Post meta date next to the stage chip. */
+.article__head .meta time { color: var(--muted); }

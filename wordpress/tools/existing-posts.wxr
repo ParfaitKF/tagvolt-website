@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  TagVolt — import file for the 3 posts that existed as static HTML.
+  WordPress admin -> Tools -> Import -> WordPress -> Run Importer -> upload this file.
+  On import, assign the author to your account and let it create the
+  categories (Attract / Respond / Grow) and tags.
+-->
+<rss version="2.0"
+  xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:wp="http://wordpress.org/export/1.2/">
+<channel>
+  <title>TagVolt Blog</title>
+  <link>https://tagvolt.com/blog</link>
+  <description>Practical articles for growing businesses across Alberta.</description>
+  <pubDate>Tue, 02 Sep 2026 09:00:00 +0000</pubDate>
+  <language>en-CA</language>
+  <wp:wxr_version>1.2</wp:wxr_version>
+  <wp:base_site_url>https://tagvolt.com/blog</wp:base_site_url>
+  <wp:base_blog_url>https://tagvolt.com/blog</wp:base_blog_url>
+
+  <wp:category>
+    <wp:term_id>0</wp:term_id>
+    <wp:category_nicename>attract</wp:category_nicename>
+    <wp:category_parent></wp:category_parent>
+    <wp:cat_name><![CDATA[Attract]]></wp:cat_name>
+  </wp:category>
+  <wp:category>
+    <wp:term_id>0</wp:term_id>
+    <wp:category_nicename>respond</wp:category_nicename>
+    <wp:category_parent></wp:category_parent>
+    <wp:cat_name><![CDATA[Respond]]></wp:cat_name>
+  </wp:category>
+  <wp:category>
+    <wp:term_id>0</wp:term_id>
+    <wp:category_nicename>grow</wp:category_nicename>
+    <wp:category_parent></wp:category_parent>
+    <wp:cat_name><![CDATA[Grow]]></wp:cat_name>
+  </wp:category>
+  <wp:tag><wp:term_id>0</wp:term_id><wp:tag_slug>local-seo</wp:tag_slug><wp:tag_name><![CDATA[Local SEO]]></wp:tag_name></wp:tag>
+  <wp:tag><wp:term_id>0</wp:term_id><wp:tag_slug>automation</wp:tag_slug><wp:tag_name><![CDATA[Automation]]></wp:tag_name></wp:tag>
+  <wp:tag><wp:term_id>0</wp:term_id><wp:tag_slug>canadian-market</wp:tag_slug><wp:tag_name><![CDATA[Canadian market]]></wp:tag_name></wp:tag>
+
+  <item>
+    <title>Local SEO for Canadian SMBs: where to start</title>
+    <link>https://tagvolt.com/blog/local-seo-canadian-smbs/</link>
+    <pubDate>Tue, 18 Aug 2026 09:00:00 +0000</pubDate>
+    <dc:creator><![CDATA[admin]]></dc:creator>
+    <guid isPermaLink="false">https://tagvolt.com/blog/?p=1001</guid>
+    <description></description>
+    <content:encoded><![CDATA[
+<!-- wp:paragraph --><p>Local SEO answers one specific question: when someone searches for your service nearby, do you show up? Before thinking about keywords, three foundations need to be in place.</p><!-- /wp:paragraph -->
+<!-- wp:heading --><h2>1. A complete Google Business Profile, not just a created one</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Many businesses have a GBP listing, but an incomplete one: rough category, missing hours, no recent photos. These details matter for local ranking — not just the fact that the listing exists.</p><!-- /wp:paragraph -->
+<!-- wp:heading --><h2>2. Consistent citations</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Your business name, address, and phone number should appear identically everywhere your business is mentioned online (directories, social media, your website). Even a small inconsistency muddies the signal sent to search engines.</p><!-- /wp:paragraph -->
+<!-- wp:heading --><h2>3. A site structure built for local</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>A site that never mentions its city or region in its copy sends no geographic signal at all. Page structure, titles, and content should reflect where you actually operate.</p><!-- /wp:paragraph -->
+<!-- wp:heading --><h2>What's next?</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Once these three foundations are in place, keyword and content work becomes far more effective — that's the difference between building on solid ground and stacking effort on a fragile base.</p><!-- /wp:paragraph -->
+]]></content:encoded>
+    <excerpt:encoded><![CDATA[The foundations to put in place before chasing keywords — GBP, citations, site structure.]]></excerpt:encoded>
+    <wp:post_id>1001</wp:post_id>
+    <wp:post_date><![CDATA[2026-08-18 09:00:00]]></wp:post_date>
+    <wp:post_date_gmt><![CDATA[2026-08-18 09:00:00]]></wp:post_date_gmt>
+    <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+    <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+    <wp:post_name><![CDATA[local-seo-canadian-smbs]]></wp:post_name>
+    <wp:status><![CDATA[publish]]></wp:status>
+    <wp:post_parent>0</wp:post_parent>
+    <wp:menu_order>0</wp:menu_order>
+    <wp:post_type><![CDATA[post]]></wp:post_type>
+    <wp:is_sticky>0</wp:is_sticky>
+    <category domain="category" nicename="attract"><![CDATA[Attract]]></category>
+    <category domain="post_tag" nicename="local-seo"><![CDATA[Local SEO]]></category>
+  </item>
+
+  <item>
+    <title>Automating lead follow-up without losing the human touch</title>
+    <link>https://tagvolt.com/blog/automating-lead-followup/</link>
+    <pubDate>Tue, 04 Aug 2026 09:00:00 +0000</pubDate>
+    <dc:creator><![CDATA[admin]]></dc:creator>
+    <guid isPermaLink="false">https://tagvolt.com/blog/?p=1002</guid>
+    <description></description>
+    <content:encoded><![CDATA[
+<!-- wp:paragraph --><p>Automation has a bad reputation when it's done poorly: generic emails, robotic-sounding follow-ups, customers who can tell they're talking to a system. Done well, it does the opposite — it frees up time so the human touch shows up at the right moment.</p><!-- /wp:paragraph -->
+<!-- wp:heading --><h2>What automation should do</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Capture every inquiry, without exception, even outside business hours. Send an instant acknowledgment to reassure the prospect. Automatically follow up with leads who haven't responded, without you having to remember. Flag hot leads for quick human follow-up.</p><!-- /wp:paragraph -->
+<!-- wp:heading --><h2>What it should never replace</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>The sales conversation itself, negotiation, and any situation where the customer has a specific question. Automation handles volume and consistency; the human handles nuance.</p><!-- /wp:paragraph -->
+<!-- wp:heading --><h2>Where to start</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Before adding tools, map your current journey: where are you losing leads today? Often the answer is simple — a contact form that notifies no one, or follow-ups that depend on one person's memory. That's where to start.</p><!-- /wp:paragraph -->
+]]></content:encoded>
+    <excerpt:encoded><![CDATA[What to know before connecting a CRM and email sequences to your business.]]></excerpt:encoded>
+    <wp:post_id>1002</wp:post_id>
+    <wp:post_date><![CDATA[2026-08-04 09:00:00]]></wp:post_date>
+    <wp:post_date_gmt><![CDATA[2026-08-04 09:00:00]]></wp:post_date_gmt>
+    <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+    <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+    <wp:post_name><![CDATA[automating-lead-followup]]></wp:post_name>
+    <wp:status><![CDATA[publish]]></wp:status>
+    <wp:post_parent>0</wp:post_parent>
+    <wp:menu_order>0</wp:menu_order>
+    <wp:post_type><![CDATA[post]]></wp:post_type>
+    <wp:is_sticky>0</wp:is_sticky>
+    <category domain="category" nicename="respond"><![CDATA[Respond]]></category>
+    <category domain="post_tag" nicename="automation"><![CDATA[Automation]]></category>
+  </item>
+
+  <item>
+    <title>Why bilingual is a competitive advantage in Canada</title>
+    <link>https://tagvolt.com/blog/bilingual-competitive-advantage/</link>
+    <pubDate>Tue, 21 Jul 2026 09:00:00 +0000</pubDate>
+    <dc:creator><![CDATA[admin]]></dc:creator>
+    <guid isPermaLink="false">https://tagvolt.com/blog/?p=1003</guid>
+    <description></description>
+    <content:encoded><![CDATA[
+<!-- wp:paragraph --><p>Canada isn't a single-language market, yet most business websites treat it that way. For an SMB targeting a mixed customer base — or simply looking to widen its reach — bilingual isn't a regulatory box to check. It's a door most competitors leave shut.</p><!-- /wp:paragraph -->
+<!-- wp:heading --><h2>What it actually changes</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>A customer who thinks and negotiates in French but only finds English content feels friction — even a small amount — that works against trust. The reverse is true for English-speaking customers facing a French-only service.</p><!-- /wp:paragraph -->
+<!-- wp:heading --><h2>The trap to avoid: doubling up without a strategy</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Translating a site word-for-word isn't the same as designing it bilingually. Both versions need to stay consistent in tone and structure, without either one feeling like an afterthought.</p><!-- /wp:paragraph -->
+<!-- wp:heading --><h2>Where to start</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>You don't need to translate everything at once. Start with the pages that generate the most contact — home, services, contact — then expand based on actual demand from your customer base.</p><!-- /wp:paragraph -->
+]]></content:encoded>
+    <excerpt:encoded><![CDATA[How to serve English and French customers without doubling your marketing effort.]]></excerpt:encoded>
+    <wp:post_id>1003</wp:post_id>
+    <wp:post_date><![CDATA[2026-07-21 09:00:00]]></wp:post_date>
+    <wp:post_date_gmt><![CDATA[2026-07-21 09:00:00]]></wp:post_date_gmt>
+    <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+    <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+    <wp:post_name><![CDATA[bilingual-competitive-advantage]]></wp:post_name>
+    <wp:status><![CDATA[publish]]></wp:status>
+    <wp:post_parent>0</wp:post_parent>
+    <wp:menu_order>0</wp:menu_order>
+    <wp:post_type><![CDATA[post]]></wp:post_type>
+    <wp:is_sticky>0</wp:is_sticky>
+    <category domain="category" nicename="grow"><![CDATA[Grow]]></category>
+    <category domain="post_tag" nicename="canadian-market"><![CDATA[Canadian market]]></category>
+  </item>
+
+</channel>
+</rss>
