@@ -9,39 +9,19 @@ No build step. No framework. Just HTML, one CSS file, two small JS files.
 
 ## Deploy status
 
-**Live to the public: `index.html` (Home) and `contact.html` (Contact) only.**
-Every other route (`services`, `portfolio`, `pricing`, `about`, `blog`,
-`blog/*`, `privacy`, `terms`) currently serves a lightweight **"In review"**
-placeholder — real header/footer, `noindex`, links back to Home / Contact.
+**All pages live.** Repo `ParfaitKF/tagvolt-website`, deployed on GitHub Pages
+(`main` / root) at <https://parfaitkf.github.io/tagvolt-website/>. Every push to
+`main` auto-rebuilds.
 
-The finished versions of those pages are kept, untouched, in **`drafts/`**
-(mirrors the site layout, including `drafts/blog/`). To publish one, move it
-back to its path and re-deploy:
+`.nojekyll` is committed so Pages serves the files as-is. All asset paths are
+relative, so the same build also works from a domain root — e.g. drop the repo
+contents (minus `.git`, `node_modules`, `ressources`, `server.mjs`) into
+Hostinger `public_html/`.
 
-```bash
-mv drafts/pricing.html pricing.html          # example
-mv drafts/blog/local-seo-canadian-smbs.html blog/
-```
-
-`.nojekyll` is committed so GitHub Pages serves the files as-is (no Jekyll,
-`_template.html` and `drafts/` served literally). All asset paths are
-relative, so it works from a project-pages sub-path
-(`https://<user>.github.io/<repo>/`) with no base tag.
-
-### Publish on GitHub Pages
-
-```bash
-git init && git add -A && git commit -m "TagVolt site"
-gh repo create tagvolt-website --public --source=. --push   # needs the gh CLI
-# then: repo Settings → Pages → Deploy from branch → main / (root)
-```
-
-No `gh`? Create an empty repo on github.com, then:
-
-```bash
-git remote add origin https://github.com/<user>/tagvolt-website.git
-git branch -M main && git push -u origin main
-```
+**Contact form** posts to [Web3Forms](https://web3forms.com) — see
+`contact.html`. It shows *"Form isn't connected yet"* until you replace the
+`access_key` hidden-input value with a real key (free, no account friction).
+Backend-free, so it works on GitHub Pages and Hostinger alike.
 
 ## Pages
 
