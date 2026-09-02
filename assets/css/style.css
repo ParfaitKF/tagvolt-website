@@ -524,6 +524,26 @@ strong { color: var(--ink-700); font-weight: 700; }
   .stage-conn svg { width: 14px; height: 14px; }
 }
 
+/* mobile: horizontal snap carousel, cards fill more of the screen */
+@media (max-width: 700px){
+  .engine {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto; overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 22px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 14px;
+    margin-inline: -24px;
+    padding: 6px 22px 10px;
+  }
+  .engine::-webkit-scrollbar { display: none; }
+  .stage { flex: 0 0 82vw; max-width: 360px; scroll-snap-align: start; }
+  .stage--active, .stage--active:hover { transform: none; }
+}
+@media (max-width: 380px){ .stage { flex-basis: 86vw; } }
+
 /* keep stage cards light even inside a dark section */
 .section--dark .stage h3 { color: var(--ink); }
 .section--dark .stage p { color: var(--body); }
@@ -644,11 +664,17 @@ strong { color: var(--ink-700); font-weight: 700; }
 .audit-cta__btn svg { width: 1.1em; height: 1.1em; }
 .audit-cta .fineprint { margin-top: 22px; }
 
-@media (max-width: 780px){
+/* keep all 5 points on one row down through tablet sizes */
+@media (min-width: 621px) and (max-width: 900px){
+  .audit-steps { gap: 4px; }
+  .astep__n { font-size: 1rem; }
+  .astep__label { font-size: .82rem; line-height: 1.3; }
+}
+@media (max-width: 620px){
   .audit-steps { grid-template-columns: repeat(2, 1fr); row-gap: 26px; column-gap: 12px; max-width: 420px; margin-top: 40px; }
   .audit-steps__line { display: none; }
 }
-@media (max-width: 400px){
+@media (max-width: 380px){
   .audit-steps { grid-template-columns: 1fr; }
 }
 
