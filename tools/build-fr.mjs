@@ -10,7 +10,7 @@
    - Only text is translated; structure/markup is copied verbatim, so
      the two locales can never drift apart.
    ===================================================================== */
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, copyFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
 
 const ROOT = process.argv[2] || ".";
@@ -805,7 +805,26 @@ window.TAGVOLT_POSTS = [
 `;
   await writeFile(join(ROOT, "assets", "js", "posts.fr.js"), postsFr);
 
-  console.log(`fr build: wrote ${wrote} fr/ pages, patched ${patched} EN pages, + posts.fr.js`);
+  // Keep the WordPress theme's bundled design assets in sync with the site.
+  const themeAssets = join(ROOT, "wordpress", "tagvolt-blog", "assets");
+  const bundle = [
+    ["assets/css/style.css", "css/style.css"],
+    ["assets/js/main.js", "js/main.js"],
+    ["assets/img/logo.png", "img/logo.png"],
+    ["assets/img/favicon.png", "img/favicon.png"],
+    ["assets/img/hub-mark.png", "img/hub-mark.png"],
+  ];
+  let bundled = 0;
+  try {
+    for (const [src, dst] of bundle) {
+      const out = join(themeAssets, dst);
+      await mkdir(dirname(out), { recursive: true });
+      await copyFile(join(ROOT, src), out);
+      bundled++;
+    }
+  } catch (e) { /* theme folder may not exist in every checkout */ }
+
+  console.log(`fr build: wrote ${wrote} fr/ pages, patched ${patched} EN pages, + posts.fr.js, + ${bundled} theme assets`);
 }
 
 build().catch((e) => { console.error(e); process.exit(1); });

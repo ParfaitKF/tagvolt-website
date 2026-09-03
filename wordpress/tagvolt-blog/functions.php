@@ -4,16 +4,28 @@
  * ---------------------------------------------------------------------
  * WordPress runs in  public_html/blog/  (subdirectory install).
  * The marketing site is hand-built static HTML one level up in
- * public_html/. This theme re-uses that site's real stylesheet + JS so
- * the two stay in visual sync, and hard-codes the same header/footer.
+ * public_html/.
+ *
+ * The design system (style.css, main.js, the logo/mark images) is
+ * BUNDLED in this theme's own assets/ folder — a copy of the main
+ * site's assets/. That keeps the blog self-contained: it renders on
+ * localhost, on staging and on Hostinger with no config and no
+ * dependency on the marketing site being reachable.
+ * Re-sync after changing the main site's CSS/JS:
+ *   node tools/build-fr.mjs .        (also refreshes this copy)
+ * or copy assets/{css,js,img} into wordpress/tagvolt-blog/assets/ .
  */
 
 if (!defined('ABSPATH')) { exit; }
 
 /**
- * URL of the static site root (one level above the /blog install).
+ * URL of the static marketing site — used ONLY for the header/footer
+ * navigation links (Home, The Engine, …), never for assets.
  *
- * Override in wp-config.php if the blog ever moves:
+ * On Hostinger it auto-resolves by stripping "/blog" from the WP home
+ * URL. Elsewhere it falls back to the WP home URL (so the links stay
+ * on-site). Override in wp-config.php to point the nav at the live
+ * marketing site during local work:
  *   define('TAGVOLT_SITE_ROOT', 'https://tagvolt.com/');
  */
 function tagvolt_site_root() {
@@ -21,7 +33,12 @@ function tagvolt_site_root() {
         return trailingslashit(TAGVOLT_SITE_ROOT);
     }
     $home = trailingslashit(home_url('/'));            // e.g. https://tagvolt.com/blog/
-    return preg_replace('#/blog/$#', '/', $home);      // -> https://tagvolt.com/
+    return preg_replace('#/blog/?$#', '/', $home);     // -> https://tagvolt.com/  (or home as-is)
+}
+
+/** URL of a file bundled in this theme's assets/ folder. */
+function tagvolt_asset($path) {
+    return get_theme_file_uri('assets/' . ltrim($path, '/'));
 }
 
 /** Theme supports. */
@@ -35,9 +52,9 @@ function tagvolt_setup() {
 }
 add_action('after_setup_theme', 'tagvolt_setup');
 
-/** Enqueue the canonical site assets + this theme's bridge stylesheet. */
+/** Enqueue the bundled design system + this theme's own overrides. */
 function tagvolt_assets() {
-    $root = tagvolt_site_root();
+    $ver = wp_get_theme()->get('Version');
 
     // Fonts — identical set to the static site.
     wp_enqueue_style(
@@ -47,14 +64,14 @@ function tagvolt_assets() {
         null
     );
 
-    // Single source of truth for the whole design system.
-    wp_enqueue_style('tagvolt-site', $root . 'assets/css/style.css', array('tagvolt-fonts'), null);
+    // The whole design system, bundled in this theme (copy of the main site's).
+    wp_enqueue_style('tagvolt-site', tagvolt_asset('css/style.css'), array('tagvolt-fonts'), $ver);
 
     // This theme's small overrides (loaded last).
-    wp_enqueue_style('tagvolt-blog', get_stylesheet_uri(), array('tagvolt-site'), wp_get_theme()->get('Version'));
+    wp_enqueue_style('tagvolt-blog', get_stylesheet_uri(), array('tagvolt-site'), $ver);
 
     // Site behaviour: header shadow, mobile menu, reveal-on-scroll. Defensive; safe on blog pages.
-    wp_enqueue_script('tagvolt-site-js', $root . 'assets/js/main.js', array(), null, true);
+    wp_enqueue_script('tagvolt-site-js', tagvolt_asset('js/main.js'), array(), $ver, true);
 }
 add_action('wp_enqueue_scripts', 'tagvolt_assets');
 

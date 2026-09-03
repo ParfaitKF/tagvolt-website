@@ -105,16 +105,23 @@ automatically. No files to touch, no deploy.
 | `archive.php` | Category / tag / date archives. |
 | `single.php` | One article + “Keep reading” (3 posts, same stage first). |
 | `search.php` / `404.php` | Search results / not-found. |
-| `functions.php` | Enqueues the **main site's** `assets/css/style.css` + `assets/js/main.js` so the blog can never visually drift. Defines the post-card markup. |
+| `functions.php` | Enqueues the bundled design system, defines the post-card markup. |
 | `style.css` | Theme header + a few bridges (filter links, WP block styles, pagination). |
+| `assets/` | **Bundled copy** of the main site's `css/style.css`, `js/main.js` and the logo images. Keeps the theme self-contained. Re-synced by `node tools/build-fr.mjs .`. |
 
-**How assets resolve:** `functions.php → tagvolt_site_root()` strips `/blog`
-from the WordPress home URL to get `https://tagvolt.com/`, then loads
-`…/assets/css/style.css`. If the blog ever moves, set in `wp-config.php`:
+**How assets resolve:** `functions.php` loads `style.css` / `main.js` / the
+logo images straight from this theme's own `assets/` folder
+(`get_theme_file_uri`) — no config, works on localhost and Hostinger alike.
+Only the header/footer **navigation links** use `tagvolt_site_root()`, which
+strips `/blog` from the WordPress home URL (so on Hostinger they point at
+`https://tagvolt.com/services.html` etc.). To aim those links somewhere else
+during local work, set in `wp-config.php`:
 
 ```php
 define('TAGVOLT_SITE_ROOT', 'https://tagvolt.com/');
 ```
+
+(That define no longer affects styling — it's links-only now.)
 
 ### Updating the theme later
 Edit the files in `wordpress/tagvolt-blog/` here, commit, then re-upload the
