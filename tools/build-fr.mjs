@@ -706,7 +706,7 @@ function hreflang(enHref, frHref, xDefault) {
 }
 function injectHead(html, block) {
   if (html.includes('rel="alternate" hreflang=')) {
-    html = html.replace(/[ \t]*<link rel="alternate" hreflang="[^"]*" href="[^"]*" \/>\n/g, "");
+    html = html.replace(/[ \t]*<link rel="alternate" hreflang="[^"]*" href="[^"]*" \/>\r?\n/g, "");
   }
   return html.replace("</head>", block + "</head>");
 }
@@ -716,7 +716,7 @@ async function build() {
 
   for (const page of ROOT_PAGES) {
     const enPath = join(ROOT, page);
-    let en = await readFile(enPath, "utf8");
+    let en = (await readFile(enPath, "utf8")).replace(/\r\n/g, "\n");
 
     // 1) English page: add / refresh hreflang
     const enBlock = hreflang(page, "fr/" + page, page);
@@ -732,7 +732,7 @@ async function build() {
     fr = apply(COMMON, fr);
     fr = apply(PAGES[page] || [], fr);
     fr = injectHead(
-      fr.replace(/[ \t]*<link rel="alternate" hreflang="[^"]*" href="[^"]*" \/>\n/g, ""),
+      fr.replace(/[ \t]*<link rel="alternate" hreflang="[^"]*" href="[^"]*" \/>\r?\n/g, ""),
       hreflang("../" + page, page, "../" + page)
     );
     const outPath = join(ROOT, "fr", page);
@@ -744,7 +744,7 @@ async function build() {
   for (const post of BLOG_POSTS) {
     const enPath = join(ROOT, post);
     const name = post.replace("blog/", "");
-    let en = await readFile(enPath, "utf8");
+    let en = (await readFile(enPath, "utf8")).replace(/\r\n/g, "\n");
 
     if (name !== "_template.html") {
       const enBlock = hreflang(name, "../fr/blog/" + name, name);
@@ -761,7 +761,7 @@ async function build() {
     fr = apply(PAGES[post] || [], fr);
     if (name !== "_template.html") {
       fr = injectHead(
-        fr.replace(/[ \t]*<link rel="alternate" hreflang="[^"]*" href="[^"]*" \/>\n/g, ""),
+        fr.replace(/[ \t]*<link rel="alternate" hreflang="[^"]*" href="[^"]*" \/>\r?\n/g, ""),
         hreflang("../../blog/" + name, name, "../../blog/" + name)
       );
     }
