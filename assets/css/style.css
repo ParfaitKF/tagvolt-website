@@ -751,6 +751,56 @@ strong { color: var(--ink-700); font-weight: 700; }
 .taglist span {
   display: inline-block; padding: 9px 16px; border: 1px solid var(--line); border-radius: var(--radius-pill);
   font-size: .88rem; font-weight: 600; color: var(--ink-700); background: #fff;
+  transition: background .28s var(--ease), color .28s var(--ease), border-color .28s var(--ease),
+              box-shadow .28s var(--ease), transform .28s var(--ease);
+}
+.taglist span:hover {
+  background: var(--orange); border-color: var(--orange); color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px -10px rgba(255,107,0,.6);
+}
+
+/* ---------- Engine stages (services.html): staged entrance + flow arrows ---------- */
+.engine-stage.reveal { transform: none; }            /* parent only fades; the halves travel */
+.engine-stage > div:first-child { transition: opacity .6s var(--ease), transform .7s var(--ease); }
+.engine-stage > div:last-child  { transition: opacity .6s var(--ease) .08s, transform .7s var(--ease) .08s; }
+.engine-stage:not(.is-in) > div:first-child { opacity: 0; transform: translateX(-28px); }
+.engine-stage:not(.is-in) > div:last-child  { opacity: 0; transform: translateX(28px); }
+
+.engine-stage .eyebrow .num { display: inline-block; transition: transform .5s var(--ease) .1s, opacity .5s var(--ease) .1s; }
+.engine-stage:not(.is-in) .eyebrow .num { opacity: 0; transform: translateY(-6px) rotate(-10deg); }
+
+/* capability chips fly in one after another once the stage is on screen */
+.engine-stage .taglist span {
+  transition: background .28s var(--ease), color .28s var(--ease), border-color .28s var(--ease),
+              box-shadow .28s var(--ease), opacity .5s var(--ease), transform .45s var(--ease);
+}
+.engine-stage:not(.is-in) .taglist span { opacity: 0; transform: translateY(16px) scale(.92); }
+.engine-stage.is-in .taglist span:nth-child(1){ transition-delay: .14s; }
+.engine-stage.is-in .taglist span:nth-child(2){ transition-delay: .21s; }
+.engine-stage.is-in .taglist span:nth-child(3){ transition-delay: .28s; }
+.engine-stage.is-in .taglist span:nth-child(4){ transition-delay: .35s; }
+.engine-stage.is-in .taglist span:nth-child(5){ transition-delay: .42s; }
+.engine-stage.is-in .taglist span:nth-child(6){ transition-delay: .49s; }
+.engine-stage.is-in .taglist span:hover { transition-delay: 0s; }   /* hover stays snappy */
+
+.engine-arrow {
+  text-align: center; line-height: 1;
+  font-size: 1.5rem; color: var(--muted);
+  margin-block: 28px; padding: 8px 0;
+  animation: engineArrowBob 1.9s var(--ease) infinite;
+  transition: color .25s var(--ease), text-shadow .25s var(--ease);
+}
+.engine-arrow:hover {
+  color: var(--orange);
+  text-shadow: 0 10px 22px rgba(255,107,0,.5);
+  animation-play-state: paused;
+  transform: translateY(5px) scale(1.4) !important;
+}
+@keyframes engineArrowBob {
+  0%   { transform: translateY(-6px); opacity: .35; }
+  55%  { transform: translateY(6px);  opacity: 1; }
+  100% { transform: translateY(-6px); opacity: .35; }
 }
 
 /* ---------- Pricing ---------- */
@@ -810,6 +860,11 @@ strong { color: var(--ink-700); font-weight: 700; }
   .pcard:hover .pcard__icon { transform: none; }
   .hub__glow { filter: none; }
   .stage--active, .stage--active:hover { transform: none; }
+  .engine-stage > div, .engine-stage .taglist span, .engine-stage .eyebrow .num {
+    opacity: 1 !important; transform: none !important; transition: none !important;
+  }
+  .engine-arrow { animation: none; opacity: 1; }
+  .engine-arrow:hover { transform: none !important; }
 }
 
 /* ---------- Utilities ---------- */
