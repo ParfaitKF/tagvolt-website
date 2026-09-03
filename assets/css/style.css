@@ -77,6 +77,8 @@ h4 { font-size: 1.05rem; font-family: "Inter", sans-serif; font-weight: 700; tex
 p { font-size: 1rem; }
 strong { color: var(--ink-700); font-weight: 700; }
 .lead { font-size: clamp(1.05rem, 1rem + .5vw, 1.25rem); color: var(--body); }
+/* French headings: Title Case looks wrong in French — keep sentence case */
+html[lang="fr"] h1, html[lang="fr"] h2 { text-transform: none; }
 
 /* ---------- Layout helpers ---------- */
 .container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: 24px; }

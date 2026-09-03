@@ -5,7 +5,8 @@ build** (`white-wildcat-660855.hostingersite.com`); the **visual system is carri
 over from the current tagvolt.com** (Sora + Inter, orange `#FF6B00` / blue
 `#0A84FF` / slate `#0F172A`, pill + 10px CTAs, 16px cards, ~110px section rhythm).
 
-No build step. No framework. Just HTML, one CSS file, two small JS files.
+No framework. Just HTML, one CSS file, two small JS files. The only build
+step is the **French locale generator** (`tools/build-fr.mjs`, see below).
 
 ## Deploy status
 
@@ -40,13 +41,34 @@ Nav order everywhere: **Home · The Engine · Portfolio · Pricing · Blog · Ab
 Contact**, plus the EN/FR toggle and the **Free Digital Audit** button.
 Footer columns: **The Engine · Agency · Contact**.
 
+## Bilingual (EN / FR)
+
+English lives at the site root; **French is a generated mirror under `fr/`**
+(`fr/index.html`, `fr/blog/…`). The EN/FR toggle is a real language switch: it
+reads the page's `hreflang` alternates, navigates to the other locale, and
+remembers the choice in `localStorage` (a returning visitor is sent to their
+language once per session).
+
+**Never edit `fr/` by hand.** Edit the English page, then regenerate:
+
+```bash
+node tools/build-fr.mjs .
+```
+
+That script (a) adds/refreshes the `hreflang` links on the English pages and
+(b) rebuilds every `fr/` page — copying the English markup verbatim and swapping
+only the text via the translation map inside the script. Add new/changed strings
+to `COMMON` (header/footer) or `PAGES[<file>]` there. `assets/js/posts.fr.js` is
+the French blog manifest (mirror of `posts.js`).
+
 ## Assets
 
 ```
 assets/css/style.css   Whole design system
-assets/js/main.js       Nav, FAQ, reveal-on-scroll, contact form, blog rendering
-assets/js/posts.js      Blog manifest — source of truth for the index + filter
-assets/img/             logo.svg, favicon.svg
+assets/js/main.js       Nav, language switch, FAQ, reveal-on-scroll, contact form, blog rendering
+assets/js/posts.js      Blog manifest (EN) — source of truth for the index + filter
+assets/js/posts.fr.js   Blog manifest (FR) — loaded by fr/ pages
+tools/build-fr.mjs      Generates the fr/ locale from the English pages
 server.mjs              Zero-dependency static server for local preview
 .claude/launch.json     Preview config
 ```
@@ -90,6 +112,6 @@ The index card, filter chip and links update automatically.
 - [ ] Add a real **Open Graph image** (`assets/img/og.png`, ~1200×630) + `og:image`.
 - [ ] **Portfolio** media are gradient placeholders with the client name — add
       real screenshots to `.case__media`.
-- [ ] **French version**: the EN/FR toggle shows a "coming soon" notice. When
-      ready, build `/fr/` pages and switch the toggle to real links + `hreflang`.
-- [ ] Add `sitemap.xml` and `robots.txt`.
+- [ ] **French copy**: `fr/` is generated and live. Have a native fr-CA reviewer
+      pass over the translation map in `tools/build-fr.mjs`, then re-run it.
+- [ ] Add `sitemap.xml` (include both locales) and `robots.txt`.

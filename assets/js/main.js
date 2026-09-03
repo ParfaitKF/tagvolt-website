@@ -51,21 +51,40 @@
     }
   });
 
-  /* ---------- language toggle (placeholder — EN only for now) ---------- */
-  doc.querySelectorAll(".lang-toggle button").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var group = btn.closest(".lang-toggle");
-      group.querySelectorAll("button").forEach(function (b) {
-        b.setAttribute("aria-pressed", String(b === btn));
-      });
-      if (btn.dataset.lang === "fr") {
-        window.alert("La version française arrive bientôt. Le site est actuellement disponible en anglais.");
-        group.querySelectorAll("button").forEach(function (b) {
-          b.setAttribute("aria-pressed", String(b.dataset.lang === "en"));
-        });
+  /* ---------- language toggle (EN <-> FR) ---------- */
+  (function () {
+    var current = (doc.documentElement.getAttribute("lang") || "en").slice(0, 2);
+    var altEl = {
+      en: doc.querySelector('link[rel="alternate"][hreflang="en"]'),
+      fr: doc.querySelector('link[rel="alternate"][hreflang="fr"]')
+    };
+    var dest = {
+      en: altEl.en && altEl.en.getAttribute("href"),
+      fr: altEl.fr && altEl.fr.getAttribute("href")
+    };
+
+    // Remembered preference: send a returning visitor to their language once per session.
+    try {
+      var saved = window.localStorage.getItem("tv-lang");
+      if (saved && (saved === "en" || saved === "fr") && saved !== current &&
+          dest[saved] && !window.sessionStorage.getItem("tv-lang-redirected")) {
+        window.sessionStorage.setItem("tv-lang-redirected", "1");
+        window.location.replace(dest[saved]);
+        return;
       }
+    } catch (e) {}
+
+    doc.querySelectorAll(".lang-toggle button").forEach(function (btn) {
+      var lang = btn.dataset.lang;
+      btn.setAttribute("aria-pressed", String(lang === current));
+      btn.addEventListener("click", function () {
+        try { window.localStorage.setItem("tv-lang", lang); } catch (e) {}
+        if (lang === current) return;
+        try { window.sessionStorage.setItem("tv-lang-redirected", "1"); } catch (e) {}
+        if (dest[lang]) window.location.href = dest[lang];
+      });
     });
-  });
+  })();
 
   /* ---------- FAQ accordion ---------- */
   doc.querySelectorAll(".faq__item").forEach(function (item) {
