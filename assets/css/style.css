@@ -185,6 +185,28 @@ strong { color: var(--ink-700); font-weight: 700; }
     radial-gradient(38% 48% at 12% 20%, var(--orange-050) 0%, transparent 72%),
     radial-gradient(34% 40% at 4% 82%, rgba(10,132,255,.06) 0%, transparent 70%);
 }
+
+/* services.html — photographic backdrop behind the Engine hero.
+   White scrim fades left→right so the dark copy stays legible over the art. */
+.hero--engine::before {
+  background:
+    linear-gradient(100deg,
+      rgba(255,255,255,.94) 0%,
+      rgba(255,255,255,.80) 32%,
+      rgba(255,255,255,.35) 58%,
+      rgba(255,255,255,.05) 100%),
+    url("../img/bg-hero-engine.webp") no-repeat center right / cover;
+}
+@media (max-width: 767px){
+  .hero--engine::before {
+    background:
+      linear-gradient(180deg,
+        rgba(255,255,255,.82) 0%,
+        rgba(255,255,255,.70) 42%,
+        rgba(255,255,255,.55) 100%),
+      url("../img/bg-hero-engine.webp") no-repeat 72% center / cover;
+  }
+}
 @media (min-width: 980px){ .hero > .container { max-width: 1280px; } }
 .hero__grid { display: grid; gap: 40px; align-items: center; }
 @media (min-width: 980px){
