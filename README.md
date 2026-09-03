@@ -21,7 +21,12 @@ repo (`/blog/` is git-ignored) so deploys never touch it. The two connect
 automatically: the WP theme points its nav at `../` (the marketing site) and the
 marketing site's "Blog" link points at `/blog/`.
 
-`.htaccess` 301s the old `/blog/*.html` URLs to the new `/blog/<slug>/` ones.
+`.htaccess` gives the static site **clean URLs** — `/services` not
+`/services.html`, `/` and `/fr/` never show `index.html` — by rewriting
+extensionless paths to the `.html` file and 301-ing the old `.html` URLs to the
+clean ones. It also 301s the old `/blog/*.html` URLs to `/blog/<slug>/`.
+Internal links are all extensionless. (On the GitHub Pages mirror, which has no
+`.htaccess`, use the `server.mjs` preview instead — it does the same fallback.)
 `.nojekyll` is only for the GitHub Pages mirror.
 
 **Contact form** posts to [Web3Forms](https://web3forms.com) — see

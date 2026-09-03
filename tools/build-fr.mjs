@@ -516,8 +516,7 @@ const PAGES = {
     ['<title>Privacy Policy | TagVolt</title>', '<title>Politique de confidentialité | TagVolt</title>'],
     ['content="How TagVolt collects, uses and protects your information."',
      'content="Comment TagVolt recueille, utilise et protège vos renseignements."'],
-    ['<p class="crumbs"><a href="index.html">Home</a> / Privacy Policy</p>',
-     '<p class="crumbs"><a href="index.html">Accueil</a> / Politique de confidentialité</p>'],
+    [' / Privacy Policy</p>', ' / Politique de confidentialité</p>'],
     ['<h1>Privacy Policy</h1>', '<h1>Politique de confidentialité</h1>'],
     ['<p class="lead">Last updated: <span data-year>2026</span></p>', '<p class="lead">Dernière mise à jour : <span data-year>2026</span></p>'],
     ["<p><strong>This is a placeholder.</strong> Replace it with a policy reviewed for your jurisdiction (Alberta PIPA and Canada's PIPEDA) before launch.</p>",
@@ -540,8 +539,7 @@ const PAGES = {
     ['<title>Terms of Service | TagVolt</title>', '<title>Conditions d’utilisation | TagVolt</title>'],
     ['content="The terms that govern use of the TagVolt website and services."',
      'content="Les conditions qui régissent l’utilisation du site web et des services de TagVolt."'],
-    ['<p class="crumbs"><a href="index.html">Home</a> / Terms of Service</p>',
-     '<p class="crumbs"><a href="index.html">Accueil</a> / Conditions d’utilisation</p>'],
+    [' / Terms of Service</p>', ' / Conditions d’utilisation</p>'],
     ['<h1>Terms of Service</h1>', '<h1>Conditions d’utilisation</h1>'],
     ['<p class="lead">Last updated: <span data-year>2026</span></p>', '<p class="lead">Dernière mise à jour : <span data-year>2026</span></p>'],
     ['<p><strong>This is a placeholder.</strong> Replace it with terms reviewed by counsel before launch.</p>',
@@ -596,6 +594,11 @@ function injectHead(html, block) {
   return html.replace("</head>", block + "</head>");
 }
 
+// Clean, extensionless URL for a page (index.html -> "/", services.html -> "/services").
+const NAMED = "services|portfolio|pricing|about|contact|privacy|terms";
+function cleanEn(page) { return page === "index.html" ? "/" : "/" + page.replace(/\.html$/, ""); }
+function cleanFr(page) { return page === "index.html" ? "/fr/" : "/fr/" + page.replace(/\.html$/, ""); }
+
 async function build() {
   let wrote = 0, patched = 0;
 
@@ -603,9 +606,11 @@ async function build() {
     const enPath = join(ROOT, page);
     let en = (await readFile(enPath, "utf8")).replace(/\r\n/g, "\n");
 
+    // hreflang block — identical on both locales (root-relative clean URLs)
+    const alt = hreflang(cleanEn(page), cleanFr(page), cleanEn(page));
+
     // 1) English page: add / refresh hreflang
-    const enBlock = hreflang(page, "fr/" + page, page);
-    const enPatched = injectHead(en, enBlock);
+    const enPatched = injectHead(en, alt);
     if (enPatched !== en) { await writeFile(enPath, enPatched); en = enPatched; patched++; }
 
     // 2) French page
@@ -615,10 +620,10 @@ async function build() {
     fr = toggleToFr(fr);
     fr = apply(COMMON, fr);
     fr = apply(PAGES[page] || [], fr);
-    fr = injectHead(
-      fr.replace(/[ \t]*<link rel="alternate" hreflang="[^"]*" href="[^"]*" \/>\r?\n/g, ""),
-      hreflang("../" + page, page, "../" + page)
-    );
+    // point same-site links at the French tree
+    fr = fr.replace(new RegExp('href="/(' + NAMED + ')(#[a-zA-Z-]+)?"', "g"), 'href="/fr/$1$2"');
+    fr = fr.replace(/href="\/"/g, 'href="/fr/"');
+    fr = injectHead(fr, alt);
     const outPath = join(ROOT, "fr", page);
     await mkdir(dirname(outPath), { recursive: true });
     await writeFile(outPath, fr);

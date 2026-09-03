@@ -42,13 +42,17 @@
   }
 
   /* ---------- active nav link ---------- */
-  var path = location.pathname.replace(/\/index\.html$/, "/").split("/").pop() || "index.html";
-  if (location.pathname.indexOf("/blog") !== -1) path = "blog";
+  var pageKey = function (p) {
+    return (p || "")
+      .replace(/[#?].*$/, "")          // drop fragment / query
+      .replace(/^\/(fr\/)?/, "")       // drop leading slash + optional /fr/
+      .replace(/index\.html$/, "")     // drop index.html
+      .replace(/\.html$/, "")          // drop .html
+      .replace(/\/$/, "");             // drop trailing slash
+  };
+  var current = location.pathname.indexOf("/blog") !== -1 ? "blog" : pageKey(location.pathname);
   doc.querySelectorAll(".nav__links a, .mobile-menu a").forEach(function (a) {
-    var href = (a.getAttribute("href") || "").replace(/[#?].*/, "").replace(/\/$/, "").split("/").pop() || "index.html";
-    if (href === path || (path === "index.html" && href === "index.html")) {
-      a.classList.add("is-active");
-    }
+    if (pageKey(a.getAttribute("href")) === current) a.classList.add("is-active");
   });
 
   /* ---------- language toggle (EN <-> FR) ---------- */
