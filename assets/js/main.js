@@ -43,10 +43,10 @@
 
   /* ---------- active nav link ---------- */
   var path = location.pathname.replace(/\/index\.html$/, "/").split("/").pop() || "index.html";
-  if (location.pathname.indexOf("/blog/") !== -1) path = "blog.html";
+  if (location.pathname.indexOf("/blog") !== -1) path = "blog";
   doc.querySelectorAll(".nav__links a, .mobile-menu a").forEach(function (a) {
-    var href = (a.getAttribute("href") || "").split("/").pop();
-    if (href === path || (path === "index.html" && (href === "" || href === "index.html"))) {
+    var href = (a.getAttribute("href") || "").replace(/[#?].*/, "").replace(/\/$/, "").split("/").pop() || "index.html";
+    if (href === path || (path === "index.html" && href === "index.html")) {
       a.classList.add("is-active");
     }
   });
@@ -180,77 +180,5 @@
     });
   }
 
-  /* ================= BLOG ================= */
-  var posts = (window.TAGVOLT_POSTS || []).slice().sort(function (a, b) {
-    return b.date < a.date ? -1 : 1;
-  });
-
-  var postCard = function (p) {
-    return (
-      '<article class="post-card reveal">' +
-        '<a class="post-card__media" href="blog/' + p.slug + '.html" aria-label="' + p.title + '">' +
-          '<span class="tagset">' +
-            '<span class="chip chip--solid">' + p.category + "</span>" +
-            '<span class="chip">' + p.tag + "</span>" +
-          "</span>" +
-        "</a>" +
-        '<div class="post-card__body">' +
-          "<h3>" + p.title + "</h3>" +
-          "<p>" + p.excerpt + "</p>" +
-          '<a class="post-card__more" href="blog/' + p.slug + '.html">Read the article →</a>' +
-        "</div>" +
-      "</article>"
-    );
-  };
-
-  /* ----- blog index page ----- */
-  var list = doc.querySelector("[data-blog-list]");
-  if (list) {
-    var filters = doc.querySelector("[data-blog-filters]");
-    var cats = ["All"].concat(
-      posts.reduce(function (acc, p) {
-        if (acc.indexOf(p.category) === -1) acc.push(p.category);
-        return acc;
-      }, [])
-    );
-
-    var render = function (cat) {
-      var shown = cat && cat !== "All" ? posts.filter(function (p) { return p.category === cat; }) : posts;
-      list.innerHTML = shown.map(postCard).join("");
-      list.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("is-in"); });
-    };
-
-    if (filters) {
-      filters.innerHTML = cats
-        .map(function (c, i) {
-          return '<button type="button" class="' + (i === 0 ? "is-active" : "") + '" data-cat="' + c + '">' + c + "</button>";
-        })
-        .join("");
-      filters.addEventListener("click", function (e) {
-        var b = e.target.closest("button");
-        if (!b) return;
-        filters.querySelectorAll("button").forEach(function (x) { x.classList.toggle("is-active", x === b); });
-        render(b.dataset.cat);
-      });
-    }
-    render("All");
-  }
-
-  /* ----- related posts on an article page ----- */
-  var related = doc.querySelector("[data-related]");
-  if (related) {
-    var current = related.getAttribute("data-related");
-    var pool = posts.filter(function (p) { return p.slug !== current; });
-    var cat = related.getAttribute("data-related-cat");
-    pool.sort(function (a, b) {
-      var aw = a.category === cat ? 0 : 1;
-      var bw = b.category === cat ? 0 : 1;
-      return aw - bw;
-    });
-    related.innerHTML = pool.slice(0, 2).map(function (p) {
-      // article pages live in /blog/, so strip the "blog/" prefix from links
-      return postCard(p).replace(/href="blog\//g, 'href="');
-    }).join("");
-    related.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("is-in"); });
-  }
+  /* The blog now runs on WordPress at /blog/ — no client-side rendering here. */
 })();

@@ -8,21 +8,26 @@ over from the current tagvolt.com** (Sora + Inter, orange `#FF6B00` / blue
 No framework. Just HTML, one CSS file, two small JS files. The only build
 step is the **French locale generator** (`tools/build-fr.mjs`, see below).
 
-## Deploy status
+## Deploy
 
-**All pages live.** Repo `ParfaitKF/tagvolt-website`, deployed on GitHub Pages
-(`main` / root) at <https://parfaitkf.github.io/tagvolt-website/>. Every push to
-`main` auto-rebuilds.
+The **marketing site** (this repo) deploys to Hostinger `public_html/` via
+Hostinger's Git integration — every push to `main` on `ParfaitKF/tagvolt-website`
+updates it. GitHub Pages (<https://parfaitkf.github.io/tagvolt-website/>) is kept
+as a staging mirror; note its `/blog/` link 404s there (no WordPress).
 
-`.nojekyll` is committed so Pages serves the files as-is. All asset paths are
-relative, so the same build also works from a domain root — e.g. drop the repo
-contents (minus `.git`, `node_modules`, `ressources`, `server.mjs`) into
-Hostinger `public_html/`.
+The **blog** is a separate WordPress install in `public_html/blog/`, with its own
+database — see `wordpress/SETUP-WORDPRESS.md`. It is deliberately **not** in this
+repo (`/blog/` is git-ignored) so deploys never touch it. The two connect
+automatically: the WP theme points its nav at `../` (the marketing site) and the
+marketing site's "Blog" link points at `/blog/`.
+
+`.htaccess` 301s the old `/blog/*.html` URLs to the new `/blog/<slug>/` ones.
+`.nojekyll` is only for the GitHub Pages mirror.
 
 **Contact form** posts to [Web3Forms](https://web3forms.com) — see
-`contact.html`. It shows *"Form isn't connected yet"* until you replace the
-`access_key` hidden-input value with a real key (free, no account friction).
-Backend-free, so it works on GitHub Pages and Hostinger alike.
+`contact.html` / `fr/contact.html`. It shows *"Form isn't connected yet"* until
+you replace the `access_key` hidden-input value with a real key (free). Works on
+static hosting with no backend.
 
 ## Pages
 
@@ -32,7 +37,7 @@ Backend-free, so it works on GitHub Pages and Hostinger alike.
 | `services.html` | The Engine | 01–05 stages with capability chips, then the 9-service grid |
 | `portfolio.html` | Portfolio | 4 case studies (Ferdaousi Lab, ABE Climatisation, ALSFI, Diaspora for African Kids) |
 | `pricing.html` | Pricing | Build / Operate offers, exact-scope in/out lists, custom add-ons |
-| `blog.html` + `blog/*` | Blog | 3 articles, category filter, per-post static pages |
+| — | Blog | WordPress at `/blog/` (see `wordpress/`); nav link points there |
 | `about.html` | About | Why TagVolt exists, how it works, industries, before/after, team |
 | `contact.html` | Contact | Lead Leak Audit form (demo — not wired), address / phone / email |
 | `privacy.html`, `terms.html` | (footer) | Placeholder legal pages — replace before launch |
@@ -44,10 +49,11 @@ Footer columns: **The Engine · Agency · Contact**.
 ## Bilingual (EN / FR)
 
 English lives at the site root; **French is a generated mirror under `fr/`**
-(`fr/index.html`, `fr/blog/…`). The EN/FR toggle is a real language switch: it
-reads the page's `hreflang` alternates, navigates to the other locale, and
-remembers the choice in `localStorage` (a returning visitor is sent to their
-language once per session).
+(`fr/index.html`, …). The EN/FR toggle is a real language switch: it reads the
+page's `hreflang` alternates, navigates to the other locale, and remembers the
+choice in `localStorage` (a returning visitor is sent to their language once per
+session). The blog is English-only for now (WordPress + Polylang would add FR
+later).
 
 **Never edit `fr/` by hand.** Edit the English page, then regenerate:
 
@@ -55,22 +61,21 @@ language once per session).
 node tools/build-fr.mjs .
 ```
 
-That script (a) adds/refreshes the `hreflang` links on the English pages and
+That script (a) adds/refreshes the `hreflang` links on the English pages,
 (b) rebuilds every `fr/` page — copying the English markup verbatim and swapping
-only the text via the translation map inside the script. Add new/changed strings
-to `COMMON` (header/footer) or `PAGES[<file>]` there. `assets/js/posts.fr.js` is
-the French blog manifest (mirror of `posts.js`).
+only the text via the translation map inside it (add strings to `COMMON` or
+`PAGES[<file>]`), and (c) re-syncs the WordPress theme's bundled `assets/`.
 
 ## Assets
 
 ```
-assets/css/style.css   Whole design system
-assets/js/main.js       Nav, language switch, FAQ, reveal-on-scroll, contact form, blog rendering
-assets/js/posts.js      Blog manifest (EN) — source of truth for the index + filter
-assets/js/posts.fr.js   Blog manifest (FR) — loaded by fr/ pages
-tools/build-fr.mjs      Generates the fr/ locale from the English pages
-server.mjs              Zero-dependency static server for local preview
-.claude/launch.json     Preview config
+assets/css/style.css     Whole design system
+assets/js/main.js         Nav, language switch, FAQ, reveal-on-scroll, contact form
+tools/build-fr.mjs        Generates the fr/ locale + re-syncs the WP theme assets
+wordpress/tagvolt-blog/   WordPress blog theme (self-contained; bundles assets/)
+wordpress/tools/          existing-posts.wxr importer + SETUP-WORDPRESS.md
+server.mjs                Zero-dependency static server for local preview
+.claude/launch.json       Preview config
 ```
 
 ## Local preview
@@ -79,23 +84,13 @@ server.mjs              Zero-dependency static server for local preview
 node server.mjs
 ```
 
-Open <http://localhost:4173>. Any static server works. Opening files with `file://`
-also works, but the blog index needs a server (otherwise it shows the
-`<noscript>` fallback links).
+Open <http://localhost:4173>. Any static server works; `file://` also works.
 
 ## Adding a blog post
 
-1. `cp blog/_template.html blog/my-slug.html`, fill the `{{PLACEHOLDERS}}`, write
-   the body inside `.article__body`.
-2. Add an entry to the **top** of the array in `assets/js/posts.js`:
-
-   ```js
-   { slug: "my-slug", title: "…", excerpt: "…",
-     category: "Attract",   // Attract | Capture | Respond | Convert | Grow
-     tag: "Local SEO", date: "2026-09-01" }
-   ```
-
-The index card, filter chip and links update automatically.
+The blog is WordPress. Log in at `tagvolt.com/blog/wp-admin/`, **Posts → Add
+New**, pick one Engine-stage **Category**, add a **Tag** and an **Excerpt**,
+Publish. Full setup + editor guide: `wordpress/SETUP-WORDPRESS.md`.
 
 ## Before this goes live
 
@@ -114,4 +109,8 @@ The index card, filter chip and links update automatically.
       real screenshots to `.case__media`.
 - [ ] **French copy**: `fr/` is generated and live. Have a native fr-CA reviewer
       pass over the translation map in `tools/build-fr.mjs`, then re-run it.
-- [ ] Add `sitemap.xml` (include both locales) and `robots.txt`.
+- [ ] **Blog** on Hostinger: follow `wordpress/SETUP-WORDPRESS.md` (install WP in
+      `public_html/blog/`, upload the theme, import `existing-posts.wxr`, set
+      Permalinks → Post name, create editor accounts, install caching + Rank Math).
+- [ ] Add `sitemap.xml` (marketing pages both locales + link WP's own sitemap)
+      and `robots.txt`.

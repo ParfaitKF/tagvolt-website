@@ -1,0 +1,13 @@
+# TagVolt — Apache / LiteSpeed config (Hostinger). Ignored by GitHub Pages.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # The blog moved from static HTML to WordPress at /blog/.
+  # 301 the old URLs so links and search results keep working.
+  RewriteRule ^blog/([^/]+)\.html$ /blog/$1/ [R=301,L]
+  RewriteRule ^blog\.html$ /blog/ [R=301,L]
+</IfModule>
+
+# Let WordPress (in /blog/) manage its own rules; nothing here touches /blog/*
+# except the two redirects above, which only match a literal ".html".

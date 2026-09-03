@@ -8,9 +8,10 @@ user accounts — nothing custom to maintain.
 ```
 public_html/
 ├── index.html, services.html, …        ← the static site (deployed from GitHub)
-├── assets/                              ← shared CSS/JS/images (the blog reuses these)
-└── blog/                                ← WordPress lives here (NOT in git)
-    └── wp-content/themes/tagvolt-blog/  ← the theme in this repo folder
+├── fr/                                  ← French mirror of the static site
+├── assets/                              ← the static site's CSS/JS/images
+└── blog/                                ← WordPress lives here (NOT in git, git-ignored)
+    └── wp-content/themes/tagvolt-blog/  ← the theme (bundles its own copy of the design assets)
 ```
 
 This folder in the repo (`wordpress/`) is the **source of truth for the theme
@@ -130,24 +131,20 @@ Manager or SFTP). The theme is intentionally **not** part of the Git auto-deploy
 
 ---
 
-## Cutover checklist (do this when the site is live on Hostinger)
+## Cutover — already done in code
 
-Once WordPress is up and the 3 posts are imported, the static blog is retired:
+The static blog has been retired in this repo:
 
-- [ ] Repoint every **“Blog”** link (`blog.html` → `/blog/`) in the header,
-      mobile menu and footer across all static pages.
-- [ ] Delete `blog.html`, `blog/*.html`, `blog/_template.html`.
-- [ ] Delete `assets/js/posts.js` and the `/* ===== BLOG ===== */` section of
-      `assets/js/main.js` (the `postCard` / `data-blog-list` / `data-related` code).
-- [ ] Add a redirect so old URLs don't 404 — in `public_html/.htaccess`:
+- [x] Every **“Blog”** link (header / mobile menu / footer, EN + FR) now points
+      at `/blog/`.
+- [x] `blog.html`, `blog/*.html`, `blog/_template.html`, `assets/js/posts.js`,
+      `assets/js/posts.fr.js` and the blog-rendering block in `assets/js/main.js`
+      are removed. `fr/blog*` too.
+- [x] `.htaccess` (repo root → `public_html/.htaccess`) 301s `/blog/*.html` and
+      `/blog.html` to the new URLs.
+- [x] `/blog/` is git-ignored so the WordPress install is never disturbed.
 
-      ```apache
-      RewriteEngine On
-      RewriteRule ^blog/([^/]+)\.html$ /blog/$1/ [R=301,L]
-      RewriteRule ^blog\.html$ /blog/ [R=301,L]
-      ```
+Still to do after WordPress is live:
 
 - [ ] Submit `tagvolt.com/blog/sitemap.xml` (from Rank Math) to Search Console.
-
-Ask Claude to do the first three bullets — they're the “cutover” task that was
-deliberately held back so the blog keeps working until WordPress is ready.
+- [ ] Add `tagvolt.com/blog/` entries to the marketing `sitemap.xml`.

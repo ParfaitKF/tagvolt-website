@@ -11,3 +11,6 @@ desktop.ini
 
 # local scratch
 /tmp/
+
+# WordPress lives in public_html/blog/ on Hostinger — nothing git should touch there
+/blog/

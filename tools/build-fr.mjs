@@ -15,16 +15,11 @@ import { join, dirname } from "node:path";
 
 const ROOT = process.argv[2] || ".";
 
-/* ---- pages: [source, frOutput, depth] (depth = folders below root) ---- */
+/* Pages mirrored into fr/. The blog now runs on WordPress at /blog/, so it
+   is not part of this build. */
 const ROOT_PAGES = [
   "index.html", "services.html", "portfolio.html", "pricing.html",
-  "about.html", "contact.html", "blog.html", "privacy.html", "terms.html",
-];
-const BLOG_POSTS = [
-  "blog/local-seo-canadian-smbs.html",
-  "blog/automating-lead-followup.html",
-  "blog/bilingual-competitive-advantage.html",
-  "blog/_template.html",
+  "about.html", "contact.html", "privacy.html", "terms.html",
 ];
 
 /* =====================================================================
@@ -517,24 +512,6 @@ const PAGES = {
      '<p class="form__note">Vous préférez le courriel? <a href="mailto:hello@tagvolt.com">hello@tagvolt.com</a>. Nous répondons en un jour ouvrable.</p>'],
   ],
 
-  "blog.html": [
-    ['<title>Blog — Tips for running your digital system | TagVolt</title>',
-     '<title>Blogue — Conseils pour faire fonctionner votre système numérique | TagVolt</title>'],
-    ['content="Local SEO, automation, follow-up — practical articles for growing businesses across Alberta."',
-     'content="SEO local, automatisation, relance — des articles pratiques pour les entreprises en croissance partout en Alberta."'],
-    ['<span class="pill-label">Blog</span>', '<span class="pill-label">Blogue</span>'],
-    ['<h1>Tips For Running Your Digital System</h1>', '<h1>Conseils pour faire fonctionner votre système numérique</h1>'],
-    ['<p class="lead">Local SEO, automation, follow-up — practical articles for growing businesses across Alberta.</p>',
-     '<p class="lead">SEO local, automatisation, relance — des articles pratiques pour les entreprises en croissance partout en Alberta.</p>'],
-    ['aria-label="Filter articles by stage"', 'aria-label="Filtrer les articles par étape"'],
-    ['<li><a href="blog/local-seo-canadian-smbs.html">Local SEO for Canadian SMBs: where to start</a></li>',
-     '<li><a href="blog/local-seo-canadian-smbs.html">SEO local pour les PME canadiennes : par où commencer</a></li>'],
-    ['<li><a href="blog/automating-lead-followup.html">Automating lead follow-up without losing the human touch</a></li>',
-     '<li><a href="blog/automating-lead-followup.html">Automatiser la relance des prospects sans perdre la touche humaine</a></li>'],
-    ['<li><a href="blog/bilingual-competitive-advantage.html">Why bilingual is a competitive advantage in Canada</a></li>',
-     '<li><a href="blog/bilingual-competitive-advantage.html">Pourquoi le bilinguisme est un avantage concurrentiel au Canada</a></li>'],
-  ],
-
   "privacy.html": [
     ['<title>Privacy Policy | TagVolt</title>', '<title>Politique de confidentialité | TagVolt</title>'],
     ['content="How TagVolt collects, uses and protects your information."',
@@ -584,98 +561,6 @@ const PAGES = {
     ['<h2>Contact</h2>', '<h2>Contact</h2>'],
     ['<p>Questions about these terms: <a href="mailto:hello@tagvolt.com">hello@tagvolt.com</a>.</p>',
      '<p>Questions sur ces conditions : <a href="mailto:hello@tagvolt.com">hello@tagvolt.com</a>.</p>'],
-  ],
-
-  /* ---- blog posts ---- */
-  "blog/local-seo-canadian-smbs.html": [
-    ['<title>Local SEO for Canadian SMBs: where to start | TagVolt</title>',
-     '<title>SEO local pour les PME canadiennes : par où commencer | TagVolt</title>'],
-    ['content="Local SEO answers one specific question: when someone searches for your service nearby, do you show up? Before thinking about keywords, three foundations need to be in place."',
-     'content="Le SEO local répond à une question précise : quand quelqu’un cherche votre service à proximité, apparaissez-vous? Avant de penser aux mots-clés, trois fondations doivent être en place."'],
-    ['<meta property="og:title" content="Local SEO for Canadian SMBs: where to start" />',
-     '<meta property="og:title" content="SEO local pour les PME canadiennes : par où commencer" />'],
-    [' / Local SEO</p>', ' / SEO local</p>'],
-    ['<h1>Local SEO For Canadian SMBs: Where To Start</h1>', '<h1>SEO local pour les PME canadiennes : par où commencer</h1>'],
-    ['>Practical guide<', '>Guide pratique<'],
-    ['<p>Local SEO answers one specific question: when someone searches for your service nearby, do you show up? Before thinking about keywords, three foundations need to be in place.</p>',
-     '<p>Le SEO local répond à une question précise : quand quelqu’un cherche votre service à proximité, apparaissez-vous? Avant de penser aux mots-clés, trois fondations doivent être en place.</p>'],
-    ['<h2>1. A complete Google Business Profile, not just a created one</h2>',
-     '<h2>1. Une fiche d’établissement Google complète, pas seulement créée</h2>'],
-    ['<p>Many businesses have a GBP listing, but an incomplete one: rough category, missing hours, no recent photos. These details matter for local ranking — not just the fact that the listing exists.</p>',
-     '<p>Beaucoup d’entreprises ont une fiche Google, mais incomplète : catégorie approximative, heures manquantes, aucune photo récente. Ces détails comptent pour le classement local — pas seulement le fait que la fiche existe.</p>'],
-    ['<h2>2. Consistent citations</h2>', '<h2>2. Des citations cohérentes</h2>'],
-    ['<p>Your business name, address, and phone number should appear identically everywhere your business is mentioned online (directories, social media, your website). Even a small inconsistency muddies the signal sent to search engines.</p>',
-     '<p>Le nom, l’adresse et le numéro de téléphone de votre entreprise devraient apparaître de façon identique partout où votre entreprise est mentionnée en ligne (annuaires, réseaux sociaux, votre site). Même une petite incohérence brouille le signal envoyé aux moteurs de recherche.</p>'],
-    ['<h2>3. A site structure built for local</h2>', '<h2>3. Une structure de site pensée pour le local</h2>'],
-    ['<p>A site that never mentions its city or region in its copy sends no geographic signal at all. Page structure, titles, and content should reflect where you actually operate.</p>',
-     '<p>Un site qui ne mentionne jamais sa ville ou sa région dans son texte n’envoie aucun signal géographique. La structure des pages, les titres et le contenu devraient refléter là où vous travaillez réellement.</p>'],
-    ["<h2>What's next?</h2>", '<h2>Et ensuite?</h2>'],
-    ['<p>Once these three foundations are in place, keyword and content work becomes far more effective — that\'s the difference between building on solid ground and stacking effort on a fragile base.</p>',
-     '<p>Une fois ces trois fondations en place, le travail sur les mots-clés et le contenu devient bien plus efficace — c’est la différence entre bâtir sur du solide et empiler des efforts sur une base fragile.</p>'],
-    ['<a class="btn btn--primary" href="../contact.html">Talk about your local SEO →</a>',
-     '<a class="btn btn--primary" href="../contact.html">Discutons de votre SEO local →</a>'],
-  ],
-
-  "blog/automating-lead-followup.html": [
-    ['<title>Automating lead follow-up without losing the human touch | TagVolt</title>',
-     '<title>Automatiser la relance des prospects sans perdre la touche humaine | TagVolt</title>'],
-    ['content="Automation has a bad reputation when it\'s done poorly. Done well, it frees up time so the human touch shows up at the right moment. What automation should and shouldn\'t do."',
-     'content="L’automatisation a mauvaise réputation quand elle est mal faite. Bien faite, elle libère du temps pour que la touche humaine se manifeste au bon moment. Ce que l’automatisation devrait et ne devrait pas faire."'],
-    ['<meta property="og:title" content="Automating lead follow-up without losing the human touch" />',
-     '<meta property="og:title" content="Automatiser la relance des prospects sans perdre la touche humaine" />'],
-    [' / Automation</p>', ' / Automatisation</p>'],
-    ['<h1>Automating Lead Follow-Up Without Losing The Human Touch</h1>',
-     '<h1>Automatiser la relance des prospects sans perdre la touche humaine</h1>'],
-    ['>Practical guide<', '>Guide pratique<'],
-    ["<p>Automation has a bad reputation when it's done poorly: generic emails, robotic-sounding follow-ups, customers who can tell they're talking to a system. Done well, it does the opposite — it frees up time so the human touch shows up at the right moment.</p>",
-     '<p>L’automatisation a mauvaise réputation quand elle est mal faite : courriels génériques, relances au ton robotique, clients qui sentent qu’ils parlent à un système. Bien faite, elle fait l’inverse — elle libère du temps pour que la touche humaine se manifeste au bon moment.</p>'],
-    ['<h2>What automation should do</h2>', '<h2>Ce que l’automatisation devrait faire</h2>'],
-    ['<p>Capture every inquiry, without exception, even outside business hours. Send an instant acknowledgment to reassure the prospect. Automatically follow up with leads who haven\'t responded, without you having to remember. Flag hot leads for quick human follow-up.</p>',
-     '<p>Capter chaque demande, sans exception, même en dehors des heures d’ouverture. Envoyer un accusé de réception instantané pour rassurer le prospect. Relancer automatiquement les prospects qui n’ont pas répondu, sans que vous ayez à y penser. Signaler les prospects chauds pour un suivi humain rapide.</p>'],
-    ['<h2>What it should never replace</h2>', '<h2>Ce qu’elle ne devrait jamais remplacer</h2>'],
-    ['<p>The sales conversation itself, negotiation, and any situation where the customer has a specific question. Automation handles volume and consistency; the human handles nuance.</p>',
-     '<p>La conversation de vente elle-même, la négociation et toute situation où le client a une question précise. L’automatisation gère le volume et la constance ; l’humain gère la nuance.</p>'],
-    ['<h2>Where to start</h2>', '<h2>Par où commencer</h2>'],
-    ["<p>Before adding tools, map your current journey: where are you losing leads today? Often the answer is simple — a contact form that notifies no one, or follow-ups that depend on one person's memory. That's where to start.</p>",
-     '<p>Avant d’ajouter des outils, cartographiez votre parcours actuel : où perdez-vous des prospects aujourd’hui? Souvent la réponse est simple — un formulaire de contact qui n’avertit personne, ou des relances qui reposent sur la mémoire d’une seule personne. C’est là qu’il faut commencer.</p>'],
-    ['<a class="btn btn--primary" href="../contact.html">Talk about your lead follow-up →</a>',
-     '<a class="btn btn--primary" href="../contact.html">Discutons de votre relance des prospects →</a>'],
-  ],
-
-  "blog/bilingual-competitive-advantage.html": [
-    ['<title>Why bilingual is a competitive advantage in Canada | TagVolt</title>',
-     '<title>Pourquoi le bilinguisme est un avantage concurrentiel au Canada | TagVolt</title>'],
-    ['<meta property="og:title" content="Why bilingual is a competitive advantage in Canada" />',
-     '<meta property="og:title" content="Pourquoi le bilinguisme est un avantage concurrentiel au Canada" />'],
-    [' / Canadian market</p>', ' / Marché canadien</p>'],
-    ['<h1>Why Bilingual Is A Competitive Advantage In Canada</h1>', '<h1>Pourquoi le bilinguisme est un avantage concurrentiel au Canada</h1>'],
-    ['>Practical guide<', '>Guide pratique<'],
-    ["<p>Canada isn't a single-language market, yet most business websites treat it that way. For an SMB targeting a mixed customer base — or simply looking to widen its reach — bilingual isn't a regulatory box to check. It's a door most competitors leave shut.</p>",
-     '<p>Le Canada n’est pas un marché unilingue, et pourtant la plupart des sites d’entreprise le traitent comme tel. Pour une PME qui vise une clientèle mixte — ou qui cherche simplement à élargir sa portée — le bilinguisme n’est pas une case réglementaire à cocher. C’est une porte que la plupart des concurrents laissent fermée.</p>'],
-    ['<h2>What it actually changes</h2>', '<h2>Ce que ça change vraiment</h2>'],
-    ['<p>A customer who thinks and negotiates in French but only finds English content feels friction — even a small amount — that works against trust. The reverse is true for English-speaking customers facing a French-only service.</p>',
-     '<p>Un client qui pense et négocie en français mais ne trouve que du contenu en anglais ressent une friction — même minime — qui nuit à la confiance. L’inverse est vrai pour la clientèle anglophone devant un service uniquement en français.</p>'],
-    ['<h2>The trap to avoid: doubling up without a strategy</h2>', '<h2>Le piège à éviter : tout doubler sans stratégie</h2>'],
-    ["<p>Translating a site word-for-word isn't the same as designing it bilingually. Both versions need to stay consistent in tone and structure, without either one feeling like an afterthought.</p>",
-     '<p>Traduire un site mot à mot n’équivaut pas à le concevoir de façon bilingue. Les deux versions doivent rester cohérentes en ton et en structure, sans que l’une paraisse une réflexion après coup.</p>'],
-    ['<h2>Where to start</h2>', '<h2>Par où commencer</h2>'],
-    ["<p>You don't need to translate everything at once. Start with the pages that generate the most contact — home, services, contact — then expand based on actual demand from your customer base.</p>",
-     '<p>Vous n’avez pas besoin de tout traduire d’un coup. Commencez par les pages qui génèrent le plus de contacts — accueil, services, contact — puis élargissez selon la demande réelle de votre clientèle.</p>'],
-    ['<a class="btn btn--primary" href="../contact.html">Talk about your bilingual strategy →</a>',
-     '<a class="btn btn--primary" href="../contact.html">Discutons de votre stratégie bilingue →</a>'],
-  ],
-
-  "blog/_template.html": [
-    ['<title>{{TITLE}} | TagVolt</title>', '<title>{{TITRE}} | TagVolt</title>'],
-    ['content="{{META_DESCRIPTION}}"', 'content="{{META_DESCRIPTION}}"'],
-    ['content="{{TITLE}}"', 'content="{{TITRE}}"'],
-    ['<h1>{{TITLE}}</h1>', '<h1>{{TITRE}}</h1>'],
-    ['>Practical guide<', '>Guide pratique<'],
-    ['<p>{{LEAD_PARAGRAPH}}</p>', '<p>{{PARAGRAPHE_INTRO}}</p>'],
-    ['<h2>{{SECTION_HEADING}}</h2>', '<h2>{{TITRE_DE_SECTION}}</h2>'],
-    ['<p>{{BODY}}</p>', '<p>{{CORPS}}</p>'],
-    ['<a class="btn btn--primary" href="../contact.html">{{CLOSING_LINK_TEXT}} →</a>',
-     '<a class="btn btn--primary" href="../contact.html">{{TEXTE_DU_LIEN_FINAL}} →</a>'],
   ],
 };
 
@@ -727,7 +612,6 @@ async function build() {
     let fr = en;
     fr = fr.replace('<html lang="en">', '<html lang="fr">');
     fr = fr.replace(/(href|src)="assets\//g, '$1="../assets/');
-    fr = fr.replace(/src="\.\.\/assets\/js\/posts\.js"/g, 'src="../assets/js/posts.fr.js"');
     fr = toggleToFr(fr);
     fr = apply(COMMON, fr);
     fr = apply(PAGES[page] || [], fr);
@@ -740,70 +624,6 @@ async function build() {
     await writeFile(outPath, fr);
     wrote++;
   }
-
-  for (const post of BLOG_POSTS) {
-    const enPath = join(ROOT, post);
-    const name = post.replace("blog/", "");
-    let en = (await readFile(enPath, "utf8")).replace(/\r\n/g, "\n");
-
-    if (name !== "_template.html") {
-      const enBlock = hreflang(name, "../fr/blog/" + name, name);
-      const enPatched = injectHead(en, enBlock);
-      if (enPatched !== en) { await writeFile(enPath, enPatched); en = enPatched; patched++; }
-    }
-
-    let fr = en;
-    fr = fr.replace('<html lang="en">', '<html lang="fr">');
-    fr = fr.replace(/(href|src)="\.\.\/assets\//g, '$1="../../assets/');
-    fr = fr.replace(/src="\.\.\/\.\.\/assets\/js\/posts\.js"/g, 'src="../../assets/js/posts.fr.js"');
-    fr = toggleToFr(fr);
-    fr = apply(COMMON, fr);
-    fr = apply(PAGES[post] || [], fr);
-    if (name !== "_template.html") {
-      fr = injectHead(
-        fr.replace(/[ \t]*<link rel="alternate" hreflang="[^"]*" href="[^"]*" \/>\r?\n/g, ""),
-        hreflang("../../blog/" + name, name, "../../blog/" + name)
-      );
-    }
-    const outPath = join(ROOT, "fr", "blog", name);
-    await mkdir(dirname(outPath), { recursive: true });
-    await writeFile(outPath, fr);
-    wrote++;
-  }
-
-  // French blog manifest
-  const postsFr = `/* TagVolt — French blog manifest. Mirror of assets/js/posts.js. */
-window.TAGVOLT_POSTS = [
-  {
-    slug: "local-seo-canadian-smbs",
-    title: "SEO local pour les PME canadiennes : par où commencer",
-    excerpt:
-      "Les fondations à mettre en place avant de courir après les mots-clés — fiche Google, citations, structure du site.",
-    category: "Attirer",
-    tag: "SEO local",
-    date: "2026-08-18"
-  },
-  {
-    slug: "automating-lead-followup",
-    title: "Automatiser la relance des prospects sans perdre la touche humaine",
-    excerpt:
-      "Ce qu’il faut savoir avant de brancher un CRM et des séquences de courriels à votre entreprise.",
-    category: "Répondre",
-    tag: "Automatisation",
-    date: "2026-08-04"
-  },
-  {
-    slug: "bilingual-competitive-advantage",
-    title: "Pourquoi le bilinguisme est un avantage concurrentiel au Canada",
-    excerpt:
-      "Comment servir la clientèle anglophone et francophone sans doubler vos efforts marketing.",
-    category: "Développer",
-    tag: "Marché canadien",
-    date: "2026-07-21"
-  }
-];
-`;
-  await writeFile(join(ROOT, "assets", "js", "posts.fr.js"), postsFr);
 
   // Keep the WordPress theme's bundled design assets in sync with the site.
   const themeAssets = join(ROOT, "wordpress", "tagvolt-blog", "assets");
@@ -824,7 +644,7 @@ window.TAGVOLT_POSTS = [
     }
   } catch (e) { /* theme folder may not exist in every checkout */ }
 
-  console.log(`fr build: wrote ${wrote} fr/ pages, patched ${patched} EN pages, + posts.fr.js, + ${bundled} theme assets`);
+  console.log(`fr build: wrote ${wrote} fr/ pages, patched ${patched} EN pages, + ${bundled} theme assets`);
 }
 
 build().catch((e) => { console.error(e); process.exit(1); });
