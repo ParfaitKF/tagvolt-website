@@ -3,7 +3,7 @@ Theme Name: TagVolt Blog
 Theme URI: https://tagvolt.com/blog/
 Author: TagVolt
 Author URI: https://tagvolt.com/
-Description: Blog-only theme for tagvolt.com. Runs WordPress in the /blog subdirectory and mirrors the hand-built static marketing site's visual system (Sora / Inter, orange #FF6B00, blue #0A84FF, slate #0F172A). Templates: home, single, archive, search, 404. It re-uses the canonical /assets/css/style.css from the main site so the blog and the site never drift apart.
+Description: Blog-only theme for tagvolt.com. Runs WordPress in the /blog subdirectory and mirrors the hand-built static marketing site's visual system (Sora / Inter, orange #FF6B00, blue #0A84FF, slate #0F172A). Templates: home, single, archive, search, 404. The design system (style.css, main.js, logo images) is bundled in this theme's assets/ folder — a copy of the main site's assets/, re-synced by tools/build-fr.mjs — so the blog is self-contained and renders anywhere with no config.
 Version: 1.0.0
 Requires at least: 6.0
 Tested up to: 6.6

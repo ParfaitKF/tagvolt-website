@@ -10,7 +10,7 @@ $root = tagvolt_site_root();
     <div class="footer__grid">
       <div class="footer__brand">
         <a class="brand" href="<?php echo esc_url($root); ?>" aria-label="TagVolt home">
-          <img class="brand__mark" src="<?php echo esc_url($root); ?>assets/img/hub-mark.png" width="240" height="240" alt="" />
+          <img class="brand__mark" src="<?php echo esc_url(tagvolt_asset('img/hub-mark.png')); ?>" width="240" height="240" alt="" />
           <span>TagVolt</span>
         </a>
         <p>Your digital department. Web design, local SEO, marketing automation, AI, community management, and GEO &mdash; for businesses across Alberta.</p>

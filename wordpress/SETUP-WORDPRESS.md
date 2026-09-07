@@ -8,9 +8,10 @@ user accounts — nothing custom to maintain.
 ```
 public_html/
 ├── index.html, services.html, …        ← the static site (deployed from GitHub)
-├── assets/                              ← shared CSS/JS/images (the blog reuses these)
-└── blog/                                ← WordPress lives here (NOT in git)
-    └── wp-content/themes/tagvolt-blog/  ← the theme in this repo folder
+├── fr/                                  ← French mirror of the static site
+├── assets/                              ← the static site's CSS/JS/images
+└── blog/                                ← WordPress lives here (NOT in git, git-ignored)
+    └── wp-content/themes/tagvolt-blog/  ← the theme (bundles its own copy of the design assets)
 ```
 
 This folder in the repo (`wordpress/`) is the **source of truth for the theme
@@ -105,16 +106,23 @@ automatically. No files to touch, no deploy.
 | `archive.php` | Category / tag / date archives. |
 | `single.php` | One article + “Keep reading” (3 posts, same stage first). |
 | `search.php` / `404.php` | Search results / not-found. |
-| `functions.php` | Enqueues the **main site's** `assets/css/style.css` + `assets/js/main.js` so the blog can never visually drift. Defines the post-card markup. |
+| `functions.php` | Enqueues the bundled design system, defines the post-card markup. |
 | `style.css` | Theme header + a few bridges (filter links, WP block styles, pagination). |
+| `assets/` | **Bundled copy** of the main site's `css/style.css`, `js/main.js` and the logo images. Keeps the theme self-contained. Re-synced by `node tools/build-fr.mjs .`. |
 
-**How assets resolve:** `functions.php → tagvolt_site_root()` strips `/blog`
-from the WordPress home URL to get `https://tagvolt.com/`, then loads
-`…/assets/css/style.css`. If the blog ever moves, set in `wp-config.php`:
+**How assets resolve:** `functions.php` loads `style.css` / `main.js` / the
+logo images straight from this theme's own `assets/` folder
+(`get_theme_file_uri`) — no config, works on localhost and Hostinger alike.
+Only the header/footer **navigation links** use `tagvolt_site_root()`, which
+strips `/blog` from the WordPress home URL (so on Hostinger they point at
+`https://tagvolt.com/services.html` etc.). To aim those links somewhere else
+during local work, set in `wp-config.php`:
 
 ```php
 define('TAGVOLT_SITE_ROOT', 'https://tagvolt.com/');
 ```
+
+(That define no longer affects styling — it's links-only now.)
 
 ### Updating the theme later
 Edit the files in `wordpress/tagvolt-blog/` here, commit, then re-upload the
@@ -123,24 +131,20 @@ Manager or SFTP). The theme is intentionally **not** part of the Git auto-deploy
 
 ---
 
-## Cutover checklist (do this when the site is live on Hostinger)
+## Cutover — already done in code
 
-Once WordPress is up and the 3 posts are imported, the static blog is retired:
+The static blog has been retired in this repo:
 
-- [ ] Repoint every **“Blog”** link (`blog.html` → `/blog/`) in the header,
-      mobile menu and footer across all static pages.
-- [ ] Delete `blog.html`, `blog/*.html`, `blog/_template.html`.
-- [ ] Delete `assets/js/posts.js` and the `/* ===== BLOG ===== */` section of
-      `assets/js/main.js` (the `postCard` / `data-blog-list` / `data-related` code).
-- [ ] Add a redirect so old URLs don't 404 — in `public_html/.htaccess`:
+- [x] Every **“Blog”** link (header / mobile menu / footer, EN + FR) now points
+      at `/blog/`.
+- [x] `blog.html`, `blog/*.html`, `blog/_template.html`, `assets/js/posts.js`,
+      `assets/js/posts.fr.js` and the blog-rendering block in `assets/js/main.js`
+      are removed. `fr/blog*` too.
+- [x] `.htaccess` (repo root → `public_html/.htaccess`) 301s `/blog/*.html` and
+      `/blog.html` to the new URLs.
+- [x] `/blog/` is git-ignored so the WordPress install is never disturbed.
 
-      ```apache
-      RewriteEngine On
-      RewriteRule ^blog/([^/]+)\.html$ /blog/$1/ [R=301,L]
-      RewriteRule ^blog\.html$ /blog/ [R=301,L]
-      ```
+Still to do after WordPress is live:
 
 - [ ] Submit `tagvolt.com/blog/sitemap.xml` (from Rank Math) to Search Console.
-
-Ask Claude to do the first three bullets — they're the “cutover” task that was
-deliberately held back so the blog keeps working until WordPress is ready.
+- [ ] Add `tagvolt.com/blog/` entries to the marketing `sitemap.xml`.

@@ -1,0 +1,26 @@
+# TagVolt — Apache / LiteSpeed config (Hostinger). Ignored by GitHub Pages.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # --- Clean URLs -----------------------------------------------------------
+  # Never show index.html:  /index.html -> /   ,  /fr/index.html -> /fr/
+  RewriteCond %{THE_REQUEST} \s/+(([^\s?]*/)?)index\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # Never show a .html extension:  /services.html -> /services
+  RewriteCond %{THE_REQUEST} \s/+([^\s?]+)\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # Serve the .html file for the clean URL (internal, no redirect)
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}\.html -f
+  RewriteRule ^(.+?)/?$ /$1.html [L]
+
+  # --- Blog moved to WordPress at /blog/ ----------------------------------
+  RewriteRule ^blog/([^/]+)\.html$ /blog/$1/ [R=301,L]
+  RewriteRule ^blog\.html$ /blog/ [R=301,L]
+</IfModule>
+
+# WordPress (in /blog/) keeps its own .htaccess and is untouched by the rules
+# above — they only ever match a literal ".html".

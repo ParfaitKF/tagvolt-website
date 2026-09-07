@@ -10,8 +10,8 @@ $root = tagvolt_site_root();
 <head>
 <meta charset="<?php bloginfo('charset'); ?>" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" type="image/png" href="<?php echo esc_url($root); ?>assets/img/favicon.png" />
-<link rel="apple-touch-icon" href="<?php echo esc_url($root); ?>assets/img/favicon.png" />
+<link rel="icon" type="image/png" href="<?php echo esc_url(tagvolt_asset('img/favicon.png')); ?>" />
+<link rel="apple-touch-icon" href="<?php echo esc_url(tagvolt_asset('img/favicon.png')); ?>" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <?php wp_head(); ?>
@@ -22,7 +22,7 @@ $root = tagvolt_site_root();
   <div class="container">
     <nav class="nav">
       <a class="brand" href="<?php echo esc_url($root); ?>" aria-label="TagVolt &mdash; digital systems that generate clients">
-        <img src="<?php echo esc_url($root); ?>assets/img/logo.png" width="508" height="138" alt="TagVolt" />
+        <img src="<?php echo esc_url(tagvolt_asset('img/logo.png')); ?>" width="508" height="138" alt="TagVolt" />
       </a>
       <div class="nav__links">
         <a href="<?php echo esc_url($root); ?>">Home</a>
