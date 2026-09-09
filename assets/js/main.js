@@ -341,6 +341,129 @@
     }
   }
 
+  /* ---------- "Featured project" — scroll-scrubbed folder reveal + stat count-up ---------- */
+  var featureSection = doc.querySelector(".feature-project");
+  if (featureSection) {
+    var fpEyebrow  = featureSection.querySelector(".feature-project__eyebrow");
+    var fpHeading  = featureSection.querySelector(".feature-project__heading");
+    var fpBack     = featureSection.querySelector(".feature-project__folder-back");
+    var fpFront    = featureSection.querySelector(".feature-project__folder-front");
+    var fpShot     = featureSection.querySelector(".feature-project__screenshot");
+    var fpCopyEls  = Array.prototype.slice.call(featureSection.querySelectorAll(".feature-project__copy > *"));
+    var fpStats    = featureSection.querySelector(".feature-project__stats");
+    var fpCountEls = Array.prototype.slice.call(featureSection.querySelectorAll(".feature-project__count"));
+
+    // ---- tune the feel of this section here ----
+    var FEATURE_CFG = {
+      scrollStartVh: 0.95,   // section top at (viewport height × this) -> progress 0
+      scrollEndVh: -0.45     // section top at (viewport height × this) -> progress 1. More negative = longer, slower reveal.
+    };
+
+    var fpClamp01 = function (v) { return v < 0 ? 0 : v > 1 ? 1 : v; };
+    var fpEaseOutQuad = function (t) { return 1 - (1 - t) * (1 - t); };
+
+    var fpSetFade = function (el, p, distance) {
+      if (!el) return;
+      el.style.opacity = p;
+      el.style.transform = "translateY(" + ((1 - p) * distance).toFixed(2) + "px)";
+    };
+
+    // ---- stat count-up: played once the stats row settles, reset when scrolled back out ----
+    var fpCountPlayed = false;
+    var fpCountRaf = null;
+    var fpRunCountUp = function () {
+      var duration = 500;
+      var startTs = null;
+      if (fpCountRaf) window.cancelAnimationFrame(fpCountRaf);
+      var tick = function (now) {
+        if (startTs === null) startTs = now;
+        var t = fpClamp01((now - startTs) / duration);
+        var eased = fpEaseOutQuad(t);
+        fpCountEls.forEach(function (el) {
+          var target = parseInt(el.getAttribute("data-target"), 10) || 0;
+          el.textContent = Math.round(target * eased);
+        });
+        if (t < 1) fpCountRaf = window.requestAnimationFrame(tick);
+      };
+      fpCountRaf = window.requestAnimationFrame(tick);
+    };
+    var fpResetCountUp = function () {
+      fpCountPlayed = false;
+      if (fpCountRaf) window.cancelAnimationFrame(fpCountRaf);
+      fpCountEls.forEach(function (el) { el.textContent = "0"; });
+    };
+
+    // kept scroll-linked for the section's whole lifetime (never "finalised"),
+    // so scrolling back up smoothly reverses the reveal at any point
+    var applyFeatureProgress = function (raw) {
+      fpSetFade(fpEyebrow, fpClamp01(raw / 0.15), 18);
+      fpSetFade(fpHeading, fpClamp01((raw - 0.06) / 0.18), 18);
+
+      // grey backing settles into place first
+      if (fpBack) {
+        var backP = fpClamp01((raw - 0.1) / 0.2);
+        fpBack.style.opacity = backP;
+        fpBack.style.transform = "translateY(" + ((1 - backP) * 20).toFixed(2) + "px) scale(" + (0.97 + backP * 0.03).toFixed(4) + ")";
+      }
+
+      // screenshot is drawn slowly up and out of the folder over a long range
+      fpSetFade(fpShot, fpClamp01((raw - 0.2) / 0.5), 150);
+
+      // blue folder front settles on top last, anchoring the visual
+      if (fpFront) {
+        var frontP = fpClamp01((raw - 0.4) / 0.25);
+        fpFront.style.opacity = frontP;
+        fpFront.style.transform = "translateY(" + ((1 - frontP) * 34).toFixed(2) + "px)";
+      }
+
+      // copy column: badge -> heading -> paragraph -> stats -> button, each its own slice
+      var slices = [0.32, 0.40, 0.48, 0.58, 0.58];
+      var spans  = [0.28, 0.28, 0.28, 0.28, 0.16];
+      var statsP = 0;
+      fpCopyEls.forEach(function (el, i) {
+        var slice = i < slices.length ? slices[i] : 0.58;
+        var span = i < spans.length ? spans[i] : 0.28;
+        var p = fpClamp01((raw - slice) / span);
+        fpSetFade(el, p, 26);
+        if (el === fpStats) statsP = p;
+      });
+
+      // fire the count-up as soon as the stats row starts appearing (not after it
+      // settles) so the numbers finish ~2s sooner at a normal scroll pace; reset if scrolled back out
+      if (statsP > 0 && !fpCountPlayed) { fpCountPlayed = true; fpRunCountUp(); }
+      else if (statsP <= 0 && fpCountPlayed) { fpResetCountUp(); }
+    };
+
+    var computeFeatureProgress = function () {
+      var rect = featureSection.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var startPoint = vh * FEATURE_CFG.scrollStartVh;
+      var endPoint = vh * FEATURE_CFG.scrollEndVh;
+      return fpClamp01((startPoint - rect.top) / (startPoint - endPoint));
+    };
+
+    if (wantsMotion) {
+      featureSection.classList.add("feature-project--scrub");
+      fpResetCountUp();
+
+      var featureTicking = false;
+      var onFeatureScroll = function () {
+        if (featureTicking) return;
+        featureTicking = true;
+        window.requestAnimationFrame(function () {
+          applyFeatureProgress(computeFeatureProgress());
+          featureTicking = false;
+        });
+      };
+
+      window.addEventListener("scroll", onFeatureScroll, { passive: true });
+      window.addEventListener("resize", onFeatureScroll);
+      onFeatureScroll();
+    } else {
+      fpCountEls.forEach(function (el) { el.textContent = el.getAttribute("data-target"); });
+    }
+  }
+
   /* ---------- contact form (posts to Web3Forms; no backend needed) ---------- */
   var form = doc.querySelector("[data-audit-form]");
   if (form) {

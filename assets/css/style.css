@@ -244,8 +244,8 @@ html[lang="fr"] h1, html[lang="fr"] h2 { text-transform: none; }
     linear-gradient(100deg, rgba(15,23,42,.92) 0%, rgba(15,23,42,.78) 26%, rgba(15,23,42,.32) 58%, rgba(15,23,42,.08) 100%),
     linear-gradient(180deg, rgba(15,23,42,.5) 0%, rgba(15,23,42,.05) 22%, rgba(15,23,42,.18) 100%);
 }
-/* stretched to the hero's full height (grid item, default align-items:stretch) so the absolutely-positioned cards/team below resolve their %-based offsets against it correctly */
-.hero--home > .container { position: relative; z-index: 2; }
+/* stretched to the hero's full height (grid item, default align-items:stretch); column flex so the team block always lays out below the copy with a guaranteed gap, instead of risking overlap on shorter viewports */
+.hero--home > .container { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; }
 .hero--home__copy { width: min(600px, 92vw); color: #fff; padding-top: clamp(16px, 3vw, 40px); }
 .hero--home .kicker { color: var(--orange); }
 .hero--home h1 { color: #fff; text-shadow: 0 5px 22px rgba(0,0,0,.35); font-size: clamp(2.3rem, 1.2rem + 3.8vw, 3.7rem); }
@@ -282,8 +282,8 @@ html[lang="fr"] h1, html[lang="fr"] h2 { text-transform: none; }
 .hero--home__iconbox svg { width: 21px; height: 21px; }
 .hero--home__trend { margin-left: auto; font-size: 1.3rem; color: #5eb2ff; flex: none; }
 
-/* docked into the hero's own bottom padding strip (below the container's content box) so it never competes for space with the copy above it */
-.hero--home__team { position: absolute; left: 0; bottom: -0vw; z-index: 3; display: flex; align-items: center; gap: 14px; }
+/* last flex child of the container, so it always renders below the copy with the container's gap keeping the two from ever touching */
+.hero--home__team { z-index: 3; display: flex; align-items: center; gap: 14px; align-self: flex-start; flex: none; }
 .hero--home__avatars { display: flex; }
 .hero--home__avatars span {
   width: 42px; height: 42px; border-radius: 50%; border: 3px solid rgba(255,255,255,.92);
@@ -781,6 +781,117 @@ html.js-sr .problem [data-reveal] {
 }
 .feature-case__media span { font-family: "Sora", sans-serif; font-weight: 800; font-size: 1.6rem; color: var(--ink); opacity: .5; text-align: center; padding: 0 20px; }
 .feature-case__stats { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 26px; }
+
+/* ---------- Featured project (scroll-scrubbed folder reveal, home) ---------- */
+.feature-project { position: relative; overflow: hidden; }
+
+.feature-project__eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: "Inter", sans-serif; font-weight: 700;
+  font-size: .8rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--orange-700); margin-bottom: 18px;
+}
+.feature-project__eyebrow .dash { width: 20px; height: 2px; background: var(--orange); display: inline-block; }
+.feature-project__heading { margin-bottom: 56px; }
+
+.feature-project__grid { display: grid; gap: 48px; align-items: center; }
+.feature-project__grid > * { min-width: 0; }   /* keep the track from blowing past .container on mobile */
+@media (min-width: 900px){ .feature-project__grid { grid-template-columns: 1fr 1fr; gap: 60px; } }
+
+/* left — screenshot tucked into a folder */
+.feature-project__visual { position: relative; height: 380px; }
+@media (min-width: 900px){ .feature-project__visual { height: 440px; } }
+.feature-project__folder-back,
+.feature-project__folder-front { position: absolute; bottom: 0; }
+/* front is the visible folder; back sits fully inside its footprint so it only
+   shows mid-reveal (grey settles first, blue slides up over it) */
+.feature-project__folder-front { left: 2%; right: 2%; height: 160px; }
+.feature-project__folder-back  { left: 5%; right: 5%; height: 140px; }
+@media (min-width: 900px){
+  .feature-project__folder-front { height: 200px; }
+  .feature-project__folder-back  { height: 172px; }
+}
+.feature-project__folder-back { z-index: 0; transform-origin: bottom left; }
+.feature-project__folder-front { z-index: 2; pointer-events: none; }
+.feature-project__folder-back svg,
+.feature-project__folder-front svg { width: 100%; height: 100%; }
+.feature-project__screenshot {
+  /* symmetric insets = narrower than the folder (left/right 2%) and centred on it */
+  position: absolute; left: 9%; right: 9%; top: 8px; height: 240px; z-index: 1;
+  border-radius: 10px; overflow: hidden;
+  box-shadow: 0 24px 50px -18px rgba(15,23,42,.32);
+}
+@media (min-width: 900px){ .feature-project__screenshot { height: 290px; } }
+.feature-project__screenshot img { width: 100%; height: 100%; object-fit: cover; object-position: left top; }
+
+/* right — copy */
+.feature-project__badge {
+  display: inline-block; margin-bottom: 18px;
+  padding: 7px 14px; border-radius: var(--radius-pill);
+  background: var(--blue-050); color: var(--blue-600);
+  font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+}
+.feature-project__copy h3 { margin-bottom: 16px; }
+.feature-project__copy > p { max-width: 460px; margin-bottom: 28px; }
+.feature-project__stats { display: flex; flex-wrap: wrap; gap: 22px; margin-bottom: 32px; }
+.feature-project__stat { padding-right: 22px; border-right: 1px solid var(--line); }
+.feature-project__stat:last-child { padding-right: 0; border-right: 0; }
+.feature-project__stat .num {
+  font-family: "Sora", sans-serif; font-weight: 800; font-size: 1.5rem;
+  line-height: 1; color: var(--ink); margin-bottom: 4px;
+}
+.feature-project__stat .label { max-width: 120px; font-size: .8rem; line-height: 1.4; color: var(--muted); }
+.feature-project__cta-wrap { margin-bottom: 0; }
+
+/* scroll-scrubbed, reversible reveal — driven continuously by main.js so the
+   section un-reveals if you scroll back up; gated on .feature-project--scrub
+   (added by JS) so content stays fully visible with JS disabled */
+.feature-project--scrub .feature-project__eyebrow,
+.feature-project--scrub .feature-project__heading,
+.feature-project--scrub .feature-project__folder-back,
+.feature-project--scrub .feature-project__folder-front,
+.feature-project--scrub .feature-project__screenshot,
+.feature-project--scrub .feature-project__copy > * {
+  opacity: 0; will-change: opacity, transform;
+}
+@media (prefers-reduced-motion: reduce){
+  .feature-project--scrub .feature-project__eyebrow,
+  .feature-project--scrub .feature-project__heading,
+  .feature-project--scrub .feature-project__folder-back,
+  .feature-project--scrub .feature-project__folder-front,
+  .feature-project--scrub .feature-project__screenshot,
+  .feature-project--scrub .feature-project__copy > * {
+    opacity: 1 !important; transform: none !important;
+  }
+}
+
+/* ---------- Testimonial cards ---------- */
+.quote-card {
+  margin: 0; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-card);
+  padding: 28px 26px; display: flex; flex-direction: column; gap: 22px;
+  box-shadow: var(--shadow-sm);
+}
+.quote-card blockquote {
+  margin: 0; font-size: .98rem; line-height: 1.6; color: var(--ink-700);
+}
+.quote-card blockquote::before { content: "\201C"; }
+.quote-card blockquote::after { content: "\201D"; }
+.quote-card figcaption { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+.quote-card__avatar {
+  width: 48px; height: 48px; border-radius: 50%; flex: none;
+  background: var(--bg-alt); border: 1px solid var(--line);
+  display: grid; place-items: center; font-size: .62rem; color: var(--muted);
+}
+.quote-card__name { display: block; font-weight: 700; font-size: .9rem; color: var(--ink); line-height: 1.3; }
+.quote-card__org { display: block; font-size: .82rem; color: var(--muted); }
+
+/* ---------- Tech-stack strip ---------- */
+.stack-logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+.stack-logos__item {
+  width: 120px; height: 48px; border: 1px dashed var(--line); border-radius: 8px;
+  display: grid; place-items: center; font-size: .72rem; color: var(--muted); background: var(--bg-alt);
+}
+.stack-logos__note { margin-top: 26px; text-align: center; font-size: .85rem; color: var(--muted); }
 
 /* ---------- Comparison table ---------- */
 .compare { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius-card); background: #fff; }
