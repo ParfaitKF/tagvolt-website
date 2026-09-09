@@ -464,6 +464,87 @@
     }
   }
 
+  /* ---------- "What clients say" — scroll-scrubbed header + directional card reveal ----------
+     Left card slides in from the left, middle rises from below, right card from the right;
+     each card's five stars then pop in one by one. Kept scroll-linked for the section's
+     whole life, so scrolling back up reverses it (same feel as .problem / .process). */
+  var voicesSection = doc.querySelector(".voices");
+  if (voicesSection) {
+    var voicesEyebrow  = voicesSection.querySelector(".voices__eyebrow");
+    var voicesTitle    = voicesSection.querySelector(".voices__title");
+    var voicesLede     = voicesSection.querySelector(".voices__lede");
+    var voicesCardsRow = voicesSection.querySelector(".voices__cards");
+    var voicesCards    = Array.prototype.slice.call(voicesSection.querySelectorAll(".voices__card"));
+    var voicesClosing  = voicesSection.querySelector(".voices__closing");
+    var voicesCta      = voicesSection.querySelector(".voices__cta");
+
+    // per-card entrance vector (px) and its own start point on the 0..1 card timeline
+    var VOICES_DIRS        = [{ x: -130, y: 10 }, { x: 0, y: 110 }, { x: 130, y: 10 }];
+    var VOICES_CARD_STARTS = [0.05, 0.15, 0.05];
+    var VOICES_CARD_SPAN   = 0.3;
+
+    var voicesClamp01 = function (v) { return v < 0 ? 0 : v > 1 ? 1 : v; };
+
+    var voicesFadeY = function (el, p, distance) {
+      if (!el) return;
+      el.style.opacity = p;
+      el.style.transform = "translateY(" + ((1 - p) * distance).toFixed(2) + "px)";
+    };
+
+    var applyVoicesProgress = function (headerRaw, cardsRaw) {
+      voicesFadeY(voicesEyebrow, voicesClamp01(headerRaw / 0.35), 16);
+      voicesFadeY(voicesTitle,   voicesClamp01((headerRaw - 0.15) / 0.4), 18);
+      voicesFadeY(voicesLede,    voicesClamp01((headerRaw - 0.3) / 0.4), 18);
+
+      voicesCards.forEach(function (card, i) {
+        var dir = VOICES_DIRS[i] || VOICES_DIRS[VOICES_DIRS.length - 1];
+        var start = i < VOICES_CARD_STARTS.length ? VOICES_CARD_STARTS[i] : 0.1;
+        var p = voicesClamp01((cardsRaw - start) / VOICES_CARD_SPAN);
+        card.style.opacity = p;
+        card.style.transform = "translateX(" + ((1 - p) * dir.x).toFixed(2) + "px) translateY(" + ((1 - p) * dir.y).toFixed(2) + "px)";
+
+        var starStart = start + VOICES_CARD_SPAN * 0.55;
+        card.querySelectorAll(".voices__stars svg").forEach(function (star, si) {
+          var sp = voicesClamp01((cardsRaw - (starStart + si * 0.025)) / 0.15);
+          star.style.opacity = sp;
+          star.style.transform = "scale(" + sp.toFixed(3) + ")";
+        });
+      });
+
+      voicesFadeY(voicesClosing, voicesClamp01((cardsRaw - 0.62) / 0.22), 16);
+      voicesFadeY(voicesCta,     voicesClamp01((cardsRaw - 0.74) / 0.22), 16);
+    };
+
+    // top of `el` at (viewport height × startFrac) -> 0 ; at (× endFrac) -> 1
+    var voicesProgressFor = function (el, startFrac, endFrac) {
+      var rect = el.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var startPoint = vh * startFrac;
+      var endPoint = vh * endFrac;
+      return voicesClamp01((startPoint - rect.top) / (startPoint - endPoint));
+    };
+
+    if (wantsMotion) {
+      var voicesTicking = false;
+      var onVoicesScroll = function () {
+        if (voicesTicking) return;
+        voicesTicking = true;
+        window.requestAnimationFrame(function () {
+          applyVoicesProgress(
+            voicesProgressFor(voicesSection, 0.95, 0.35),
+            voicesProgressFor(voicesCardsRow, 0.95, 0.25)
+          );
+          voicesTicking = false;
+        });
+      };
+      window.addEventListener("scroll", onVoicesScroll, { passive: true });
+      window.addEventListener("resize", onVoicesScroll);
+      onVoicesScroll();
+    } else {
+      applyVoicesProgress(1, 1);
+    }
+  }
+
   /* ---------- contact form (posts to Web3Forms; no backend needed) ---------- */
   var form = doc.querySelector("[data-audit-form]");
   if (form) {
