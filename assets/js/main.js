@@ -610,7 +610,18 @@
     var engineCurrent = 0;
     var engineTimer = null;
 
-    var engineStages = [
+    var engineIsFr = (doc.documentElement.getAttribute("lang") || "en").slice(0, 2) === "fr";
+    var engineLbl = engineIsFr
+      ? { stage: "Étape ", of: " sur ", runs: "CE QUI TOURNE ICI" }
+      : { stage: "Stage ", of: " of ", runs: "WHAT RUNS HERE" };
+
+    var engineStages = engineIsFr ? [
+      { title: "Attirer", desc: "Faites-vous découvrir par les bonnes personnes, avant même qu'elles connaissent vos concurrents.", pills: ["Site web", "Fiche d'établissement Google", "SEO local", "Pages d'atterrissage", "Contenu"] },
+      { title: "Capter", desc: "Transformez l'attention en véritable occasion, pas seulement en une visite qui ne laisse aucune trace.", pills: ["Formulaires de contact", "Demandes de devis", "Clic-pour-appeler", "Captation de prospects", "Suivi"] },
+      { title: "Répondre", desc: "Ne laissez aucune occasion sans réponse assez longtemps pour qu'elle refroidisse.", pills: ["IA", "SMS", "Courriel", "Réponses automatisées", "Qualification des prospects"] },
+      { title: "Convertir", desc: "Menez un prospect intéressé vers une prochaine étape planifiée et confirmée.", pills: ["Relances", "Prise de rendez-vous", "Rappels", "CRM", "Maturation des prospects"] },
+      { title: "Développer", desc: "Transformez ce que vous venez de bâtir en un actif qui se développe de lui-même.", pills: ["Réputation", "Avis", "Réactivation des clients", "Suivi de la performance", "Optimisation continue"] }
+    ] : [
       { title: "Attract", desc: "Get discovered by the right people, before they even know your competitors exist.", pills: ["Website", "Google Business Profile", "Local SEO", "Landing pages", "Content"] },
       { title: "Capture", desc: "Turn attention into an actual opportunity, not just a visit that leaves no trace.", pills: ["Contact forms", "Quote requests", "Click-to-call", "Lead capture", "Tracking"] },
       { title: "Respond", desc: "Make sure no opportunity sits unanswered long enough to go cold.", pills: ["AI", "SMS", "Email", "Automated responses", "Lead qualification"] },
@@ -634,12 +645,12 @@
       var s = engineStages[i];
       enginePanelEl.innerHTML =
         '<div class="panel-left">' +
-          '<p class="stage-label">Stage ' + (i + 1) + " of " + engineStages.length + "</p>" +
+          '<p class="stage-label">' + engineLbl.stage + (i + 1) + engineLbl.of + engineStages.length + "</p>" +
           "<h3>" + s.title + "</h3>" +
           '<p class="desc">' + s.desc + "</p>" +
         "</div>" +
         '<div class="panel-right">' +
-          '<p class="runs-label">WHAT RUNS HERE</p>' +
+          '<p class="runs-label">' + engineLbl.runs + "</p>" +
           '<div class="pills">' +
             s.pills.map(function (p, idx) {
               return '<span class="pill" style="animation-delay:' + (0.15 + idx * 0.05) + 's">' + p + "</span>";
