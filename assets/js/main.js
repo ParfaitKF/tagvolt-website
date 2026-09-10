@@ -545,6 +545,90 @@
     }
   }
 
+  /* ---------- "Why TagVolt" — scroll-scrubbed diamond-card reveal ----------
+     Header fades up first; the four cards then fly in from their own outward
+     corners (keeping their fan-out tilt), the glow shapes + figure fade in with
+     them, and the button lands last. Kept scroll-linked for the section's whole
+     life, so scrolling back up reverses it (same feel as .voices / .problem). */
+  var whyvSection = doc.querySelector(".whyv");
+  if (whyvSection) {
+    var whyvEyebrow = whyvSection.querySelector(".whyv__eyebrow");
+    var whyvTitle   = whyvSection.querySelector(".whyv__title");
+    var whyvLede    = whyvSection.querySelector(".whyv__lede");
+    var whyvCta     = whyvSection.querySelector(".whyv__cta");
+    var whyvFigure  = whyvSection.querySelector(".whyv__figure");
+    var whyvGlows   = Array.prototype.slice.call(whyvSection.querySelectorAll(".whyv__glow"));
+    var whyvCards   = [
+      { el: whyvSection.querySelector(".whyv__card--1"), x: -140, y: -100 },
+      { el: whyvSection.querySelector(".whyv__card--2"), x:  140, y: -100 },
+      { el: whyvSection.querySelector(".whyv__card--3"), x: -140, y:  100 },
+      { el: whyvSection.querySelector(".whyv__card--4"), x:  140, y:  100 }
+    ];
+
+    var whyvClamp01 = function (v) { return v < 0 ? 0 : v > 1 ? 1 : v; };
+
+    var whyvFadeY = function (el, p, distance) {
+      if (!el) return;
+      el.style.opacity = p;
+      el.style.transform = "translateY(" + ((1 - p) * distance).toFixed(2) + "px)";
+    };
+
+    // kept scroll-linked for the section's whole lifetime (never "finalised"),
+    // so scrolling back up smoothly reverses the reveal at any point
+    var applyWhyvProgress = function (raw) {
+      whyvFadeY(whyvEyebrow, whyvClamp01(raw / 0.12), 16);
+      whyvFadeY(whyvTitle,   whyvClamp01((raw - 0.05) / 0.15), 18);
+      whyvFadeY(whyvLede,    whyvClamp01((raw - 0.1) / 0.15), 18);
+
+      // the four cards, the glow shapes and the figure share one slice of the range
+      var p = whyvClamp01((raw - 0.28) / 0.42);
+      whyvGlows.forEach(function (g) { g.style.opacity = p; });
+      if (whyvFigure) {
+        whyvFigure.style.opacity = p;
+        whyvFigure.style.transform = "translateX(-50%) translateY(" + ((1 - p) * 40).toFixed(2) + "px)";
+      }
+      whyvCards.forEach(function (c) {
+        if (!c.el) return;
+        var rot = getComputedStyle(c.el).getPropertyValue("--rot").trim() || "0deg";
+        c.el.style.opacity = p;
+        c.el.style.transform =
+          "translate(" + ((1 - p) * c.x).toFixed(2) + "px, " + ((1 - p) * c.y).toFixed(2) + "px) rotate(" + rot + ")";
+      });
+
+      // button lands last
+      var ctaP = whyvClamp01((raw - 0.75) / 0.2);
+      if (whyvCta) {
+        whyvCta.style.opacity = ctaP;
+        whyvCta.style.transform = "translateX(-50%) translateY(" + ((1 - ctaP) * 16).toFixed(2) + "px)";
+      }
+    };
+
+    var computeWhyvProgress = function () {
+      var rect = whyvSection.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var startPoint = vh * 0.9;
+      var endPoint = vh * -0.2;
+      return whyvClamp01((startPoint - rect.top) / (startPoint - endPoint));
+    };
+
+    if (wantsMotion) {
+      var whyvTicking = false;
+      var onWhyvScroll = function () {
+        if (whyvTicking) return;
+        whyvTicking = true;
+        window.requestAnimationFrame(function () {
+          applyWhyvProgress(computeWhyvProgress());
+          whyvTicking = false;
+        });
+      };
+      window.addEventListener("scroll", onWhyvScroll, { passive: true });
+      window.addEventListener("resize", onWhyvScroll);
+      onWhyvScroll();
+    } else {
+      applyWhyvProgress(1);
+    }
+  }
+
   /* ---------- contact form (posts to Web3Forms; no backend needed) ---------- */
   var form = doc.querySelector("[data-audit-form]");
   if (form) {

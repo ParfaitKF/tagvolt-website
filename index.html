@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <script>document.documentElement.classList.add('js-sr')</script>
-<title>TagVolt — Your Digital Department</title>
+<title>TagVolt Agency — Your Digital Department</title>
 <meta name="description" content="TagVolt helps growing businesses build, manage and improve the digital systems behind their business — websites, Google, automation, AI and lead follow-up. One team. One system. One point of contact, in English or French." />
 <link rel="icon" type="image/png" href="assets/img/favicon.png" />
 <link rel="apple-touch-icon" href="assets/img/favicon.png" />
@@ -12,12 +12,35 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/css/style.css" />
-<meta property="og:title" content="TagVolt — Your Digital Department" />
+<meta property="og:title" content="TagVolt Agency — Your Digital Department" />
 <meta property="og:description" content="One team runs the website, Google, automation, AI and lead follow-up behind your business." />
 <meta property="og:type" content="website" />
+<meta property="og:site_name" content="TagVolt Agency" />
 <link rel="alternate" hreflang="en" href="/" />
 <link rel="alternate" hreflang="fr" href="/fr/" />
 <link rel="alternate" hreflang="x-default" href="/" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.tagvolt.com/#organization",
+      "name": "TagVolt Agency",
+      "alternateName": "TagVolt",
+      "url": "https://www.tagvolt.com/",
+      "logo": "https://www.tagvolt.com/assets/img/logo.png"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.tagvolt.com/#website",
+      "name": "TagVolt Agency",
+      "url": "https://www.tagvolt.com/",
+      "publisher": { "@id": "https://www.tagvolt.com/#organization" }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -66,7 +89,10 @@
 
   <!-- ============ HERO ============ -->
   <section class="hero hero--home">
-    <img class="hero--home__bg" src="assets/img/hero-bg.webp" width="1800" height="874" alt="" data-parallax="0.14" data-parallax-max="38" />
+    <picture>
+      <source media="(max-width: 900px)" srcset="assets/img/hero-bg-mobile.webp" width="1200" height="582" />
+      <img class="hero--home__bg" src="assets/img/hero-bg.webp" width="1800" height="874" alt="" data-parallax="0.14" data-parallax-max="38" />
+    </picture>
     <div class="container">
       <div class="hero--home__copy">
         <p class="kicker">Your business deserves more than a website</p>
@@ -88,24 +114,6 @@
         </ul>
       </div>
 
-      <div class="hero--home__cards" aria-hidden="true" data-parallax="-0.06" data-parallax-max="60">
-        <div class="hero--home__card hero--home__card--search">
-          <span class="hero--home__gmark">G</span>
-          <span class="label">Get found<br />on Google</span>
-          <span class="hero--home__trend">&#8599;</span>
-        </div>
-        <div class="hero--home__card hero--home__card--wide">
-          <span class="hero--home__iconbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="3"/><path d="M3 20c0-4 2.5-6 6-6s6 2 6 6M13 20c.4-2.5 1.8-4 4.5-4 2.6 0 4.5 1.6 4.5 4"/></svg></span>
-          <span class="label">Turn visitors<br />into customers</span>
-          <span class="hero--home__trend">&#8599;</span>
-        </div>
-        <div class="hero--home__card hero--home__card--wide">
-          <span class="hero--home__iconbox"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="11" width="4" height="10" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg></span>
-          <span class="label">Grow your<br />business</span>
-          <span class="hero--home__trend">&#8599;</span>
-        </div>
-      </div>
-
       <div class="hero--home__team" aria-hidden="true" data-parallax="0.05" data-parallax-max="40">
         <div class="hero--home__avatars">
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
@@ -123,12 +131,10 @@
     <div class="container">
       <p data-sr="0" style="text-align:center;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Trusted by businesses across Alberta</p>
       <div class="trust__row">
-        <span class="trust__logo" data-sr="1"><img src="assets/img/logos/ferdaousi-lab.webp" width="480" height="132" loading="lazy" decoding="async" alt="Ferdaousi Lab" /></span>
-        <span class="trust__logo" data-sr="1.5"><img src="assets/img/logos/abe-climatisation.webp" width="480" height="144" loading="lazy" decoding="async" alt="ABE Climatisation" /></span>
-        <span class="trust__logo" data-sr="2"><img src="assets/img/logos/alsfi.webp" width="160" height="160" loading="lazy" decoding="async" alt="ALSFI" /></span>
-        <span class="trust__logo" data-sr="2.5"><img src="assets/img/logos/diaspora-african-kids.webp" width="160" height="160" loading="lazy" decoding="async" alt="Diaspora for African Kids (DAK)" /></span>
-        <span class="trust__logo" data-sr="3"><img src="assets/img/logos/gsmt-canada.webp" width="141" height="160" loading="lazy" decoding="async" alt="GSMT Canada Inc" /></span>
-        <span class="trust__logo" data-sr="3.5"><img src="assets/img/logos/entre-nous.webp" width="480" height="130" loading="lazy" decoding="async" alt="Entre Nous — Je vous écoute" /></span>
+        <span class="trust__item" data-sr="1"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Ferdaousi Lab</span>
+        <span class="trust__item" data-sr="1.5"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>ABE Climatisation</span>
+        <span class="trust__item" data-sr="2"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>ALSFI</span>
+        <span class="trust__item" data-sr="2.5"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Diaspora for African Kids</span>
       </div>
     </div>
   </section>
@@ -372,21 +378,76 @@
     </div>
   </section>
 
-  <!-- ============ WHY TAGVOLT (trust points) ============ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow"><span class="num">—</span> Why TagVolt</span>
-        <h2>Built To Be The One Call You Make, Not One Of Five.</h2>
-        <p>Most businesses end up juggling a web designer, an SEO freelancer, and whoever answers the phone. TagVolt replaces all three with one accountable team.</p>
+  <!-- ============ WHY TAGVOLT ============ -->
+  <section class="whyv" id="why-tagvolt">
+    <div class="whyv__wrap">
+      <p class="whyv__eyebrow"><span class="whyv__dash"></span>Why TagVolt</p>
+      <h2 class="whyv__title">Built To Be The One Call You Make</h2>
+      <p class="whyv__lede">Most businesses end up juggling a web designer, an SEO freelancer, and whoever answers the phone. TagVolt replaces all three with one accountable team.</p>
+
+      <div class="whyv__stage">
+        <div class="whyv__glow whyv__glow--1" aria-hidden="true">
+          <svg viewBox="0 0 665 285" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 16.5L474.5 0L665 195.5V284.5L14.5 246.5L0 16.5Z" fill="url(#whyv-glow-grad)"/>
+            <defs>
+              <linearGradient id="whyv-glow-grad" x1="665" y1="229" x2="4" y2="47.5" gradientUnits="userSpaceOnUse">
+                <stop stop-color="white" stop-opacity="0"/>
+                <stop offset="1" stop-color="white"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="whyv__glow whyv__glow--2" aria-hidden="true">
+          <svg viewBox="0 0 665 285" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 16.5L474.5 0L665 195.5V284.5L14.5 246.5L0 16.5Z" fill="url(#whyv-glow-grad)"/></svg>
+        </div>
+        <div class="whyv__glow whyv__glow--3" aria-hidden="true">
+          <svg viewBox="0 0 665 285" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 16.5L474.5 0L665 195.5V284.5L14.5 246.5L0 16.5Z" fill="url(#whyv-glow-grad)"/></svg>
+        </div>
+        <div class="whyv__glow whyv__glow--4" aria-hidden="true">
+          <svg viewBox="0 0 665 285" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 16.5L474.5 0L665 195.5V284.5L14.5 246.5L0 16.5Z" fill="url(#whyv-glow-grad)"/></svg>
+        </div>
+
+        <div class="whyv__card whyv__card--orange whyv__card--1">
+          <span class="whyv__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg></span>
+          <div>
+            <h3>Incorporated, Edmonton-based</h3>
+            <p>TagVolt Agency Inc. is a registered Alberta business, not a side project.</p>
+          </div>
+        </div>
+
+        <div class="whyv__card whyv__card--2">
+          <span class="whyv__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+          <div>
+            <h3>Bilingual by default</h3>
+            <p>Every engagement runs comfortably in English or French, not as an afterthought.</p>
+          </div>
+        </div>
+
+        <div class="whyv__card whyv__card--3">
+          <span class="whyv__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+          <div>
+            <h3>One point of contact</h3>
+            <p>No hand-offs between agencies — the same team designs, builds, and runs the system.</p>
+          </div>
+        </div>
+
+        <div class="whyv__card whyv__card--orange whyv__card--4">
+          <span class="whyv__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+          <div>
+            <h3>You own everything</h3>
+            <p>Your website, your domain, your data — nothing is held back if you ever decide to leave.</p>
+          </div>
+        </div>
+
+        <a href="/about" class="whyv__cta">
+          More about us
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
       </div>
-      <div class="grid cols-4">
-        <div class="card reveal"><h4>Incorporated, Edmonton-based</h4><p>TagVolt Agency Inc. is a registered Alberta business, not a side project.</p></div>
-        <div class="card reveal"><h4>One point of contact</h4><p>No hand-offs between agencies — the same team designs, builds, and runs the system.</p></div>
-        <div class="card reveal"><h4>Bilingual by default</h4><p>Every engagement runs comfortably in English or French, not as an afterthought.</p></div>
-        <div class="card reveal"><h4>You own everything</h4><p>Your website, your domain, your data — nothing is held back if you ever decide to leave.</p></div>
-      </div>
-      <p class="mt-4 reveal"><a class="btn btn--ghost" href="/about">More about us →</a></p>
+    </div>
+
+    <div class="whyv__figure" aria-hidden="true">
+      <img src="assets/img/why-tagvolt-figure.webp" width="494" height="591" loading="lazy" decoding="async" alt="" />
     </div>
   </section>
 
@@ -432,29 +493,6 @@
         </article>
       </div>
       <p class="mt-4 reveal"><a class="btn btn--ghost" href="/portfolio">See the full portfolio →</a></p>
-    </div>
-  </section>
-
-  <!-- ============ SECOND LOOK ============ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow"><span class="num">—</span> Second look</span>
-        <h2>Same System, Completely Different Business.</h2>
-      </div>
-      <div class="split split--rev reveal">
-        <div class="feature-case__media" aria-hidden="true"><span>ABE Climatisation</span></div>
-        <div>
-          <span class="case__tag">Local trades</span>
-          <h3>A site rebuilt to generate calls, not just traffic.</h3>
-          <p>ABE Climatisation's old site got visits but few calls. TagVolt rebuilt it around a single job: making it effortless to call, request a quote, or book a service — with click-to-call on every screen and pages structured around real service areas instead of one generic homepage.</p>
-          <div class="feature-case__stats">
-            <div class="stat"><span class="big">3</span><p>Core services featured</p></div>
-            <div class="stat"><span class="big">1-tap</span><p>Click-to-call, every page</p></div>
-          </div>
-          <p class="mt-3"><a class="btn btn--primary" href="/portfolio">See more projects →</a></p>
-        </div>
-      </div>
     </div>
   </section>
 

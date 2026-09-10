@@ -62,8 +62,8 @@ const COMMON = [
 const PAGES = {
   "index.html": [
     /* ---- head ---- */
-    ['<title>TagVolt — Your Digital Department</title>', '<title>TagVolt — Votre département numérique</title>'],
-    ['content="TagVolt — Your Digital Department"', 'content="TagVolt — Votre département numérique"'],
+    ['<title>TagVolt Agency — Your Digital Department</title>', '<title>TagVolt Agency — Votre département numérique</title>'],
+    ['content="TagVolt Agency — Your Digital Department"', 'content="TagVolt Agency — Votre département numérique"'],
     ['content="TagVolt helps growing businesses build, manage and improve the digital systems behind their business — websites, Google, automation, AI and lead follow-up. One team. One system. One point of contact, in English or French."',
      'content="TagVolt aide les entreprises en croissance à bâtir, gérer et améliorer les systèmes numériques derrière leur entreprise — sites web, Google, automatisation, IA et relance des prospects. Une équipe. Un système. Un seul point de contact, en français ou en anglais."'],
     ['content="One team runs the website, Google, automation, AI and lead follow-up behind your business."',
@@ -340,8 +340,8 @@ const PAGES = {
   ],
 
   "portfolio.html": [
-    ["<title>Portfolio — Businesses we've helped run their digital side | TagVolt</title>",
-     '<title>Réalisations — Des entreprises que nous avons aidées à gérer leur volet numérique | TagVolt</title>'],
+    ["<title>Portfolio — Businesses we've helped run their digital side | TagVolt Agency</title>",
+     '<title>Réalisations — Des entreprises que nous avons aidées à gérer leur volet numérique | TagVolt Agency</title>'],
     ['content="Different industries, same need: a digital system that works, without having to become a technical expert. Case studies from TagVolt."',
      'content="Des secteurs différents, un même besoin : un système numérique qui fonctionne, sans devoir devenir un expert technique. Études de cas de TagVolt."'],
     ['<span class="pill-label">Portfolio</span>', '<span class="pill-label">Réalisations</span>'],
@@ -391,7 +391,7 @@ const PAGES = {
   ],
 
   "pricing.html": [
-    ['<title>Pricing — Two offers. One clear path forward. | TagVolt</title>', '<title>Tarifs — Deux offres. Un chemin clair. | TagVolt</title>'],
+    ['<title>Pricing — Two offers. One clear path forward. | TagVolt Agency</title>', '<title>Tarifs — Deux offres. Un chemin clair. | TagVolt Agency</title>'],
     ['content="Build the system, then keep it running. No confusing tiers, no guesswork. Build from $1,500 CAD; Operate from $797 CAD/mo."',
      'content="Bâtir le système, puis le maintenir. Aucun palier confus, aucune approximation. Bâtir à partir de 1 500 $ CA ; Opérer à partir de 797 $ CA/mois."'],
     ['<span class="pill-label">Pricing</span>', '<span class="pill-label">Tarifs</span>'],
@@ -482,8 +482,8 @@ const PAGES = {
   ],
 
   "about.html": [
-    ['<title>About — Your digital department, without hiring one | TagVolt</title>',
-     '<title>À propos — Votre département numérique, sans avoir à l’embaucher | TagVolt</title>'],
+    ['<title>About — Your digital department, without hiring one | TagVolt Agency</title>',
+     '<title>À propos — Votre département numérique, sans avoir à l’embaucher | TagVolt Agency</title>'],
     ["content=\"TagVolt was founded in Edmonton, Alberta, on a simple idea: businesses shouldn't have to become technical experts, or coordinate five different freelancers, to have a digital presence that works.\"",
      'content="TagVolt a été fondée à Edmonton, en Alberta, sur une idée simple : une entreprise ne devrait pas avoir à devenir experte en technologie, ni à coordonner cinq pigistes différents, pour avoir une présence numérique qui fonctionne."'],
     ['<span class="pill-label">About</span>', '<span class="pill-label">À propos</span>'],
@@ -569,7 +569,7 @@ const PAGES = {
   ],
 
   "contact.html": [
-    ['<title>Contact — Get your free digital audit | TagVolt</title>', '<title>Contact — Obtenez votre audit numérique gratuit | TagVolt</title>'],
+    ['<title>Contact — Get your free digital audit | TagVolt Agency</title>', '<title>Contact — Obtenez votre audit numérique gratuit | TagVolt Agency</title>'],
     ["content=\"20 minutes. No pressure. No obligation. We'll look at your website, Google visibility, lead capture, follow-up, and automation opportunities — then tell you what we'd fix first.\"",
      'content="20 minutes. Sans pression. Sans engagement. Nous examinons votre site web, votre visibilité Google, la captation de prospects, la relance et les occasions d’automatisation — puis nous vous disons quoi corriger en premier."'],
     ['<span class="pill-label">Contact</span>', '<span class="pill-label">Contact</span>'],
@@ -606,7 +606,7 @@ const PAGES = {
   ],
 
   "privacy.html": [
-    ['<title>Privacy Policy | TagVolt</title>', '<title>Politique de confidentialité | TagVolt</title>'],
+    ['<title>Privacy Policy | TagVolt Agency</title>', '<title>Politique de confidentialité | TagVolt Agency</title>'],
     ['content="How TagVolt collects, uses and protects your information."',
      'content="Comment TagVolt recueille, utilise et protège vos renseignements."'],
     [' / Privacy Policy</p>', ' / Politique de confidentialité</p>'],
@@ -629,7 +629,7 @@ const PAGES = {
   ],
 
   "terms.html": [
-    ['<title>Terms of Service | TagVolt</title>', '<title>Conditions d’utilisation | TagVolt</title>'],
+    ['<title>Terms of Service | TagVolt Agency</title>', '<title>Conditions d’utilisation | TagVolt Agency</title>'],
     ['content="The terms that govern use of the TagVolt website and services."',
      'content="Les conditions qui régissent l’utilisation du site web et des services de TagVolt."'],
     [' / Terms of Service</p>', ' / Conditions d’utilisation</p>'],
