@@ -1,0 +1,8 @@
+# TagVolt — https://tagvolt.com
+User-agent: *
+Allow: /
+
+# The blog runs on WordPress under /blog/ and publishes its own sitemap
+# (typically /blog/wp-sitemap.xml). Submit that one separately in Search Console.
+
+Sitemap: https://tagvolt.com/sitemap.xml

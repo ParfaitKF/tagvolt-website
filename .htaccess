@@ -3,6 +3,22 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # --- Old WordPress URLs -> nearest current page (301) --------------------
+  # The previous site used per-trade landing pages and root-level French
+  # slugs. None of these paths exist any more; send them somewhere useful
+  # instead of 404-ing old backlinks and search results.
+  RewriteRule ^(electrical|hvac|plumbing|roofing|cleaning|landscaping|construction|painting|concrete|flooring|fencing)/?$ /services [R=301,L,NC]
+  RewriteRule ^(electricite|plomberie|toiture|nettoyage|amenagement-paysager|peinture)/?$ /fr/services [R=301,L,NC]
+  RewriteRule ^contacts/?$ /contact [R=301,L,NC]
+  RewriteRule ^book-a-strategy-call/?$ /contact [R=301,L,NC]
+  RewriteRule ^(accueil|home-fr)/?$ /fr/ [R=301,L,NC]
+  RewriteRule ^(a-propos|apropos)/?$ /fr/about [R=301,L,NC]
+  RewriteRule ^tarifs/?$ /fr/pricing [R=301,L,NC]
+  RewriteRule ^realisations/?$ /fr/portfolio [R=301,L,NC]
+  RewriteRule ^(reserver-un-appel|reservez-un-appel|prendre-rendez-vous)/?$ /fr/contact [R=301,L,NC]
+  RewriteRule ^politique-de-confidentialite/?$ /fr/privacy [R=301,L,NC]
+  RewriteRule ^(conditions-generales|conditions-dutilisation|conditions-d-utilisation)/?$ /fr/terms [R=301,L,NC]
+
   # --- Clean URLs -----------------------------------------------------------
   # Never show index.html:  /index.html -> /   ,  /fr/index.html -> /fr/
   RewriteCond %{THE_REQUEST} \s/+(([^\s?]*/)?)index\.html[\s?] [NC]

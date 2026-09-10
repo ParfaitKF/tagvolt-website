@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- ============ English (site root) ============ -->
+  <url>
+    <loc>https://tagvolt.com/</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tagvolt.com/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tagvolt.com/fr/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tagvolt.com/" />
+  </url>
+  <url>
+    <loc>https://tagvolt.com/services</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tagvolt.com/services" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tagvolt.com/fr/services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tagvolt.com/services" />
+  </url>
+  <url>
+    <loc>https://tagvolt.com/portfolio</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tagvolt.com/portfolio" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tagvolt.com/fr/portfolio" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tagvolt.com/portfolio" />
+  </url>
+  <url>
+    <loc>https://tagvolt.com/pricing</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tagvolt.com/pricing" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tagvolt.com/fr/pricing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tagvolt.com/pricing" />
+  </url>
+  <url>
+    <loc>https://tagvolt.com/about</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tagvolt.com/about" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tagvolt.com/fr/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tagvolt.com/about" />
+  </url>
+  <url>
+    <loc>https://tagvolt.com/contact</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tagvolt.com/contact" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tagvolt.com/fr/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tagvolt.com/contact" />
+  </url>
+  <url>
+    <loc>https://tagvolt.com/privacy</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tagvolt.com/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tagvolt.com/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tagvolt.com/privacy" />
+  </url>
+  <url>
+    <loc>https://tagvolt.com/terms</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tagvolt.com/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tagvolt.com/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tagvolt.com/terms" />
+  </url>
+
+  <!-- ============ French (/fr/) ============ -->
+  <url>
+    <loc>https://tagvolt.com/fr/</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tagvolt.com/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tagvolt.com/fr/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tagvolt.com/" />
+  </url>
+  <url>
+    <loc>https://tagvolt.com/fr/services</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tagvolt.com/services" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tagvolt.com/fr/services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tagvolt.com/services" />
+  </url>
+  <url>
+    <loc>https://tagvolt.com/fr/portfolio</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tagvolt.com/portfolio" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tagvolt.com/fr/portfolio" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tagvolt.com/portfolio" />
+  </url>
+  <url>
+    <loc>https://tagvolt.com/fr/pricing</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tagvolt.com/pricing" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tagvolt.com/fr/pricing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tagvolt.com/pricing" />
+  </url>
+  <url>
+    <loc>https://tagvolt.com/fr/about</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tagvolt.com/about" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tagvolt.com/fr/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tagvolt.com/about" />
+  </url>
+  <url>
+    <loc>https://tagvolt.com/fr/contact</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tagvolt.com/contact" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tagvolt.com/fr/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tagvolt.com/contact" />
+  </url>
+  <url>
+    <loc>https://tagvolt.com/fr/privacy</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tagvolt.com/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tagvolt.com/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tagvolt.com/privacy" />
+  </url>
+  <url>
+    <loc>https://tagvolt.com/fr/terms</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tagvolt.com/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tagvolt.com/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tagvolt.com/terms" />
+  </url>
+
+  <!-- ============ Blog (WordPress — keeps its own wp-sitemap) ============ -->
+  <url>
+    <loc>https://tagvolt.com/blog/</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+</urlset>
