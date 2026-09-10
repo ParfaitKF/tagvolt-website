@@ -18,6 +18,11 @@
   RewriteRule ^(reserver-un-appel|reservez-un-appel|prendre-rendez-vous)/?$ /fr/contact [R=301,L,NC]
   RewriteRule ^politique-de-confidentialite/?$ /fr/privacy [R=301,L,NC]
   RewriteRule ^(conditions-generales|conditions-dutilisation|conditions-d-utilisation)/?$ /fr/terms [R=301,L,NC]
+  # old WordPress RSS feeds -> the WordPress blog's feed
+  RewriteRule ^(fr/)?feed/?$ /blog/feed/ [R=301,L]
+  # WP-style French home + a stray legacy page
+  RewriteRule ^fr/accueil/?$ /fr/ [R=301,L,NC]
+  RewriteRule ^blinkcall/?$ / [R=301,L,NC]
 
   # --- Clean URLs -----------------------------------------------------------
   # Never show index.html:  /index.html -> /   ,  /fr/index.html -> /fr/
